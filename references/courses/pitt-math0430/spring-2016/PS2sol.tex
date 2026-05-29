@@ -1,0 +1,173 @@
+\documentclass{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fullpage}
+\usepackage{mathtools}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathcal{P}}
+\DeclareMathOperator{\SL}{SL}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{Math 430 -- Problem Set 2 Solutions}
+\date{Due February 5, 2016}
+
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+
+\item[3.1(e).] Find all $x \in \ZZ$ satisfying $5x \equiv 1 \pmod{6}$
+\begin{solution}
+In $\ZZ_6$, $5 + 6\ZZ$ is its own inverse.  Multiplying both sides by $5$ yields $x \equiv 5 \pmod{6}$.
+\end{solution}
+\item[3.1(f).] Find all $x \in \ZZ$ satisfying $3x \equiv 1 \pmod{6}$
+\begin{solution}
+The multiples of $3$ modulo $6$ are $0$ and $3$, so there are no solutions to this equation.
+\end{solution}
+\item[3.7.] Let $S = \RR \backslash \{-1\}$ and define a binary operation on $S$ by $a * b = a + b + ab$.  Prove that $(S, *)$ is an abelian group.
+\begin{solution} $ $
+\begin{itemize}
+\item We first show that the operation gives a function $S \times S \to S$.  Certainly $a * b \in \RR$, so we just need to show that if $a,b \in S$ then $a*b \ne -1$.  If $a * b = -1$ then $1 + a + b + ab = 0$, or $(1+a)(1+b) = 0$.  This is impossible since $a \ne -1$ and $b \ne -1$.
+\item We show that $0$ is the identity for $S$: for any $a \in S$, we have $0 * a = 0 + a + 0\cdot a = a = a + 0 + a \cdot 0 = a * 0$.
+\item We show that the operation is associative:
+\begin{align*}
+a * (b * c) &= a*(b + c + bc) \\
+&= a + b + c + bc + a(b + c + bc) \\
+&= a + b + c + bc + ab + ac + abc \\
+&= a + b + ab + c + (a + b + ab)c \\
+&= (a + b + ab) * c\\
+&= (a * b) * c.
+\end{align*}
+\item We show that if $a \in S$ then $\frac{-a}{1+a} \in S$ is its inverse.  Note that $\frac{-a}{1+a} \in \RR$ since $a \ne -1$.  Moreover, if $\frac{-a}{1+a} = -1$ then $-a = -1 - a$, which is impossible.  Thus $\frac{-a}{1+a} \in S$.  We then compute
+\begin{align*}
+a * \frac{-a}{1+a} &= a + \frac{-a}{1+a} + \frac{-a^2}{1+a} = 0 \\
+\frac{-a}{1+a} * a &= \frac{-a}{1+a} + a + \frac{-a^2}{1+a} = 0 \\
+\end{align*}
+\item Finally, note that $a * b = a + b + ab = b*a$ since addition and multiplication are commutative in $\RR$.
+\end{itemize}
+Thus $(S, *)$ is an abelian group. \qed
+\end{solution}
+\item[3.16.] Give a specific example of some group $G$ and elements $g,h \in G$ where $(gh)^n \ne g^nh^n$.
+\begin{solution}
+For $n=2$, any $g,h$ with $gh \ne hg$ will work.  For example, in $S_3$ we have
+\begin{align*}
+[(12)(13)]^2 &= (132)^2 \\
+&= (123) \\
+(12)^2(13)^2 &= () \cdot () \\
+&= ().
+\end{align*}
+\end{solution}
+\item[3.17.] Give an example of three different groups with eight elements.  Why are the groups different?
+\begin{solution}
+There are five groups of order eight, up to isomorphism: you can select any three.  They are
+\begin{itemize}
+\item $\ZZ_8$,
+\item $\ZZ_4 \times \ZZ_2$,
+\item $\ZZ_2 \times \ZZ_2 \times \ZZ_2$,
+\item $D_4$,
+\item $Q_8$.
+\end{itemize}
+The first three are abelian, and thus different from the last two.  The first three are distinguished from each other by the largest order of an element (8 vs 4 vs 2).  To see that $D_4$ and $Q_8$ are not isomorphic, note that $D_4$ has four elements of order $2$ (the four reflections) while $Q_8$ only has one ($-1$).  
+\end{solution}
+\item[3.22.] Show that addition and multiplication mod $n$ are well defined operations.  That is, show that the operations do not depend on the choice of the representative from the equivalence classes mod $n$.
+\begin{solution}
+Suppose that $a \equiv b \pmod{n}$ and $c \equiv d \pmod{n}$.  Then there are integers $r,s$ with $a = b + rn$ and $c = d + sn$.  We find that
+\begin{align*}
+a + c &= b + rn + d + sn \\
+&= b + d + (r+s)n,
+\end{align*}
+so $a + c \equiv b + d \pmod{n}$ and thus addition is well defined.  Similarly,
+\begin{align*}
+ac &= (b + rn)(c+sn) \\
+&= bc + bsn + crn + rsn^2 \\
+&= bc + (bs + cr + rsn)n,
+\end{align*}
+so $ac \equiv bd \pmod{n}$ and thus multiplication is well defined. \qed
+\end{solution}
+\item[3.25.] Let $a$ and $b$ be elements in a group $G$.  Prove that $ab^na^{-1} = (aba^{-1})^n$ for $n \in \ZZ$.
+\begin{solution} $ $
+\begin{itemize}
+\item For $n = 0$, this is the statement that $a \cdot 1 \cdot a^{-1} = (aba^{-1})^0$, which is true since both sides are the identity.
+\item For $n > 0$ we prove the statement by induction.  Suppose that $ab^{n-1}a^{-1} = (aba^{-1})^{n-1}$.  Then
+\begin{align*}
+(aba^{-1})^n &= (aba^{-1})^{n-1}(aba^{-1}) \\
+&= ab^{n-1}a^{-1}aba^{-1} \\
+&= ab^na^{-1}.
+\end{align*}
+\item Finally, for $n<0$, let $m = -n$.  Using the statement for $m>0$, we have
+\begin{align*}
+(aba^{-1})^n &= ((aba^{-1})^{-1})^m \\
+&= (ab^{-1}a^{-1})^m \\
+&= a(b^{-1})^ma^{-1} \\
+&= ab^na^{-1}
+\end{align*} \qed
+\end{itemize}
+\end{solution}
+\item[3.31.] Show that if $a^2 = e$ for all elements $a$ in a group $G$ then $G$ must be abelian.
+\begin{solution}
+Suppose $a,b \in G$.  Then $e = (ab)(ab)$ and $e = (ab)(ba)$ since $b^2 = e$ and $a^2 = e$.  Since inverses are unique, $ab = ba.$  Thus $G$ is abelian. \qed
+\end{solution}
+\item[3.33.] Let $G$ be a group and suppose that $(ab)^2 = a^2b^2$ for all $a$ and $b$ in $G$. Prove that $G$ is an abelian group.
+\begin{solution}
+For all $a, b \in G$ we have
+\[
+abab = aabb.
+\]
+Multiplying on the left by $a^{-1}$ and on the right by $b^{-1}$ yields $ba = ab$, so $G$ is abelian. \qed
+\end{solution}
+\item[3.40.]  Let 
+\[
+G = \left\{\begin{psmallmatrix} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{psmallmatrix}\right\},
+\]
+where $\theta \in \RR$.  Prove that $G$ is a subgroup of $\SL_2(\RR)$.
+\begin{solution} $ $
+\begin{itemize}
+\item Since $\det \begin{psmallmatrix} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{psmallmatrix} = \cos^2(\theta) + \sin^2(\theta) = 1$, we get that $G \subseteq \SL_2(\RR)$.
+\item Setting $\theta = 0$ shows that $G$ contains the identity.
+\item Since
+\[
+\begin{psmallmatrix} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{psmallmatrix} \cdot \begin{psmallmatrix} \cos(-\theta) & -\sin(-\theta) \\ \sin(-\theta) & \cos(-\theta) \end{psmallmatrix} = \begin{psmallmatrix} 1 & 0 \\ 0 & 1 \end{psmallmatrix},
+\]
+$G$ is closed under taking inverses.
+\item We have
+\begin{align*}
+\begin{psmallmatrix} \cos(\theta) & -\sin(\theta) \\ \sin(\theta) & \cos(\theta) \end{psmallmatrix} \cdot \begin{psmallmatrix} \cos(\varphi) & -\sin(\varphi) \\ \sin(\varphi) & \cos(\varphi) \end{psmallmatrix} 
+&= \begin{psmallmatrix} \cos(\theta)\cos(\varphi) - \sin(\theta)\sin(\varphi) & -\sin(\theta)\cos(\varphi) - \cos(\theta)\sin(\varphi) \\ \sin(\theta)\cos(\varphi) + \cos(\theta)\sin(\varphi) & \cos(\theta)\cos(\varphi) - \sin(\theta)\sin(\varphi) \end{psmallmatrix} \\
+&= \begin{psmallmatrix} \cos(\theta + \varphi) & -\sin(\theta + \varphi) \\ \sin(\theta + \varphi) & \cos(\theta + \varphi) \end{psmallmatrix}.
+\end{align*}
+Thus $G$ is closed under taking products, and thus $G$ is a subgroup of $\SL_2(\RR)$. \qed
+\end{itemize}
+\end{solution}
+\item[3.44.] List the subgroups of the quaternion group $Q_8$.
+\begin{solution}
+\[
+\left\{\{1\},\{\pm 1\}, \{\pm 1, \pm i\}, \{\pm 1, \pm j\}, \{\pm 1, \pm k\}, Q_8\right\}.
+\]
+\end{solution}
+\item[3.46.] Prove or disprove: if $H$ and $K$ are subgroups of a group $G$, then $H \cup K$ is a subgroup of $G$.
+\begin{solution}
+This is only true if $H \subseteq K$ or $K \subseteq H$.  It suffices to give a counterexample: if $G = \ZZ_6$, $H = \{0,2,4\}$ and $K=\{0,3\}$ then $H \cup K = \{0,2,3,4\}$ is not a subgroup since it's not closed under addition.
+\end{solution}
+\item[3.52.] Prove or disprove: every proper subgroup of a nonabelian group is nonabelian.
+\begin{solution}
+False.  For example, $\{\pm 1, \pm i\} \subset Q_8$ is abelian but $Q_8$ is not.
+\end{solution}
+\item[3.54.] Let $H$ be a subgroup of $G$.  If $g \in G$, show that $gHg^{-1} = \{g^{-1}hg : h \in H\}$ is also a subgroup of $G$.
+\begin{solution} $ $
+\begin{itemize}
+\item Note that $gHg^{-1}$ is a subset of $G$ since $G$ is closed under multiplication.
+\item Since $1 \in H$, we have $1 = g\cdot 1 \cdot g^{-1} \in gHg^{-1}$.
+\item If $ghg^{-1}, gh'g^{-1} \in gHg^{-1}$ then $ghg^{-1}gh'g^{-1} = ghh'g^{-1} \in gHg^{-1}$ since $H$ is closed under multiplication.
+\item If $ghg^{-1} \in gHg^{-1}$ then $(ghg^{-1})^{-1} = gh^{-1}g^{-1} \in gHg^{-1}$ since $H$ is closed under taking inverses.
+\end{itemize}
+\end{solution}
+\end{enumerate}
+
+\end{document}

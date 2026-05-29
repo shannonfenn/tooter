@@ -1,0 +1,127 @@
+\documentclass{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fullpage}
+\usepackage{mathtools}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathcal{P}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\Aut}{Aut}
+\DeclareMathOperator{\cis}{cis}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{Math 430 -- Problem Set 4 Solutions}
+\date{Due March 18, 2016}
+
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+\item[6.18.] If $[G:H] = 2$, prove that $gH = Hg$.
+\begin{solution}
+Since there are only two left cosets of $H$, which are disjoint, and one of them is $H$ itself, the left cosets are $H$ and $G - H$.  The same holds for the right cosets.  Moreover, $gH = H$ iff $g \in H$ iff $Hg = H$, and $gH = G-H$ iff $g \not\in H$ iff $Hg = G-H$.  Thus $Hg = gH$ for all $g \in G$.
+\end{solution}
+
+\item[9.8.] Prove that $\QQ$ is not isomorphic to $\ZZ$.
+\begin{solution} 
+Suppose that $\phi : \QQ \to \ZZ$ is an isomorphism.  Since $\phi$ is surjective, there is an $x \in \QQ$ with $\phi(x) = 1$.  Then $2 \phi(x/2) = \phi(x) = 1$, but there is no integer $n$ with $2n = 1$.  Thus $\phi$ cannot exist.
+\end{solution}
+\item[9.12.] Prove that $S_4$ is not isomorphic to $D_{12}$.
+\begin{solution}
+Note that $D_{12}$ has an element of order $12$ (rotation by $30$ degrees), while $S_4$ has no element of order $12$.  Since orders of elements are preserved under isomorphisms, $S_4$ cannot be isomorphic to $D_{12}$.
+\end{solution}
+\item[9.23.] Prove or disprove the following assertion.  Let $G, H,$ and $K$ be groups. If $G \times K \cong H \times K$, then $G \cong H$.
+\begin{solution}
+Take $K = \prod_{i=1}^\infty \ZZ$ and $G = \ZZ$ and $H = \ZZ \times \ZZ$.  Then
+\[
+G \times K \cong K \cong H \times K
+\]
+but $G \not\cong H$.  Thus the assertion is false.
+
+Note that the assertion is true if $K$ is finite, but it's difficult to show.  Many people tried to used an isomorphism $\phi : G \times K \to H \times K$ to construct an isomorphism $G \to H$.  The difficulty is that $\phi$ does not necessarily map $G \times \{1\}$ to $H \times \{1\}$ (and if it does, it may not be surjective).
+\end{solution}
+\item[9.29.] Show that $S_n$ is isomorphic to a subgroup of $A_{n+2}$.
+\begin{solution}
+Let $\tau = (n+1, n+2) \in S_{n+2}$.  Identifying $S_n$ with the subgroup of $S_{n+2}$ that fix $n+1$ and $n+2$, we define
+\begin{align*}
+\phi : S_n &\to A_{n+2} \\
+\sigma &\mapsto \begin{cases} \sigma & \mbox{if $\sigma$ even} \\
+\sigma \tau & \mbox{if $\sigma$ odd} \end{cases}
+\end{align*}
+We check that $\phi$ is an injective homomorphism.  Note that $\sigma \tau = \tau \sigma$ for all $\sigma \in S_n$.  Then
+\[
+\phi(\sigma_1 \sigma_2) = \begin{cases}
+\sigma_1 \sigma_2 = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ even, $\sigma_2$ even,} \\
+\sigma_1 \sigma_2 \tau = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ even, $\sigma_2$ odd,} \\
+\sigma_1 \tau \sigma_2 = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ odd, $\sigma_2$ even,} \\
+\sigma_1 \sigma_2 \tau^2 = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ odd, $\sigma_2$ odd.}
+\end{cases}
+\]
+Thus $\phi$ is a homomorphism.  Moreover, since $\sigma \tau$ is never $1$ and $\phi$ is the identity on $A_n$, $\phi$ is injective.  Thus it defines an isomorphism with its image, a subgroup of $A_{n+2}$.
+\end{solution}
+\item[9.40.] Find two nonisomorphic groups $G$ and $H$ such that $\Aut(G) \cong \Aut(H)$.
+\begin{solution}
+The simplest example is the trivial group and $\ZZ_2$, both of which have trivial automorphism group.  Other examples include $G=\ZZ_3$ and $H=\ZZ_6$ (both of which have automorphism group isomorphic to $\ZZ_2$), $G=\ZZ_7$ and $H=\ZZ_{18}$ (both of which have isomorphism group isomorphic to $\ZZ_6$).  A more interesting example is $G = \ZZ_2\times\ZZ_2$ and $H=S_3$, both of which have automorphism group isomorphic to $S_3$.
+\end{solution}
+\item[9.41.] Let $G$ be a group and $g \in G$. Define a map $i_g : G \to G$ by $i_g(x) = gxg^{-1}$. Prove that $i_g$ defines an automorphism of $G$.
+\begin{solution}
+Since $i_g(xy) = gxyg^{-1} = gxg^{-1}gyg^{-1} = i_g(x)i_g(y)$, we see that $i_g$ is a homomorphism.  It is injective: if $i_g(x) = 1$ then $gxg^{-1} = 1$ and thus $x = 1$.  And it is surjective: if $y \in G$ then $i_g(g^{-1}yg) = y$.  Thus it is an automorphism.
+\end{solution}
+\item[9.48] Prove that $G \times H$ is isomorphic to $H \times G$.
+\begin{solution}
+The map $\phi : G\times H \to H \times G$ defined by $\phi(g,h) = (h,g)$ is an isomorphism.  It is surjective since, given $(h,g) \in H \times G$, $\phi(g,h) = (h,g)$.  It is injective since if $\phi(g,h) = \phi(g',h')$ then $(h,g) = (h',g')$ and therefore $h = h'$ and $g = g'$.  Finally, it is a homomorphism since $\phi((g,h)(g',h')) = \phi(gg',hh') = (hh',gg') = (h,g)(h',g') = \phi(g,h)\phi(g',h')$.
+\end{solution}
+\item[9.55] We classify groups of order $2p$ for an odd prime $p$.
+\begin{enumerate}
+\item Assume G is a group of order $2p$, where $p$ is an odd prime.  If $a \in G$, show that $a$ must have order $1$, $2$, $p$, or $2p$.
+\begin{solution}
+This is Lagrange's theorem.
+\end{solution}
+\item Suppose that $G$ has an element of order $2p$. Prove that $G$ is isomorphic to $\ZZ_{2p}$. Hence, $G$ is cyclic.
+\begin{solution}
+Let $g \in G$ have order $2p$ and define $\phi : \ZZ_{2p} \to G$ by $n \mapsto g^n$.  This is well defined and surjective since $g$ has order $2p$, and thus also injective since $G$ and $\ZZ_{2p}$ have the same size.  Finally, it is a homomorphism since $g^{m+n} = g^ng^m$.
+\end{solution}
+\item Suppose that $G$ does not contain an element of order $2p$. Show that $G$ must contain an element of order $p$.
+\begin{solution}
+Suppose for contradiction that every element of $G$ had order $1$ or $2$.  Take two distinct elements $a,b$ of order $2$.  Then $ab = ba$ (by 3.31 in a previous homework), and thus $\{1, a, b, ab\}$ forms a subgroup of $G$.  But the order of $G$ is not divisible by $4$, contradicting Lagrange's theorem.
+\end{solution}
+\item Suppose that $G$ does not contain an element of order $2p$. Show that $G$ must contain an element of order $2$.
+\begin{solution}
+Now suppose that every element has order $1$ or $p$.  We first show that the following relation is an equivalence relation on the set of non-identity elements of $G$: $a \sim b$ if there is an $n$ so that $a = b^n$.  It is reflexive (taking $n=1$) and transitive (if $b = c^m$ then $a = c^{mn}$).  In the equation $a=b^n$ we must have $n$ relatively prime to $p$ since $a$ is not the identity.  Taking $m$ to be the inverse of $n$ modulo $p$ and raising both sides of $a = b^n$ to the $m$th yields $b = a^m$, so it is symmetric.
+
+Each equivalence class under this relation has size $p-1$.  But there are $2p-1$ elements of $G$, which is not divisible by $p-1$.  This provides the desired contradiction.
+\end{solution}
+\item Let $P$ be a subgroup of $G$ with order $p$ and $y \in G$ have order $2$.  Show that $yP =Py$.
+\begin{solution}
+Since $P$ has index $2$, this is problem 6.18.
+\end{solution}
+\item Suppose that $G$ does not contain an element of order $2p$ and $P = \langle z \rangle$ is a subgroup of order $p$ generated by $z$. If $y$ is an element of order $2$, then $yz=z^ky$ for some $2 \le k < p$.
+\begin{solution}
+Since $yP = Py$, we must have $yz = z^ky$ for some $k$, so we need only show that $k \ne 0, 1$.  The case $k=0$ is ruled out since $z \ne 1$.  If $k=1$, then $z$ and $y$ would commute, and the order of $yz$ would be $2p$, contradicting the assumption.
+\end{solution}
+\item Suppose that $G$ does not contain an element of order $2p$. Prove that $G$ is not abelian.
+\begin{solution}
+This follows immediately from the previous part, since $y$ and $z$ do not commute.
+\end{solution}
+\item Suppose that $G$ does not contain an element of order $2p$ and $P = \langle z \rangle$ is a subgroup of order $p$ generated by $z$ and $y$ is an element of order $2$. Show that we can list the elements of $G$ as $\{z^iy^j | 0 \le i < p, 0 \le j < 2\}$.
+\begin{solution}
+The elements $z^iy^0$ for $0 \le i < p$ are an enumeration of $P = \langle z \rangle$, and $z^iy^1$ for $0 \le i < p$ are then an enumeration of $Py$.  These are the two cosets of $P$ in $G$, giving all the elements.
+\end{solution}
+\item Suppose that $G$ does not contain an element of order $2p$ and $P = \langle z \rangle$ is a subgroup of order $p$ generated by $z$ and $y$ is an element of order $2$. Prove that the product $(z^iy^j)(z^ry^s)$ can be expressed uniquely as $z^my^n$ for some non negative integers $m, n$. Thus, conclude that there is only one possibility for a non-abelian group of order $2p$, it must therefore be the one we have seen already, the dihedral group.
+\begin{solution}
+In the relation $yz = z^ky$, the number of $y$s does not change, so we must have $n \equiv j+s \pmod{2}$.  Furthermore, when $j=0$ we have $z^{i+r}y^s$ directly, so we need only consider the case $j=1$.  Since we are interested in putting results in the form $z^my^n$, the case $s=1$ can be handled from the case $s=0$ by just multiplying on the right by $y$, so it suffices to consider $z^iyz^r$.  It must be of the form $z^my$ for some $m$, but we need to show that there is only one possible value $m$ can take.
+
+Consider the expression $yzy$.  Since $yz = z^ky$, we must have $yzy = z^k$.  But then $z = yyzyy = yz^ky = (yzy)^k = (z^k)^k = z^{k^2}$.  Thus $k^2 \equiv 1 \pmod{2}$, for which there are only two solutions: $k=1$ and $k=-1$.  The case $k=1$ corresponds to abelian $G$, which we have ruled out.  Thus there is only a single possible group: the dihedral group $D_p$.
+\end{solution}
+\end{enumerate}
+\end{enumerate}
+
+\end{document}

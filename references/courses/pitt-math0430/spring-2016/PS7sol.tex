@@ -1,0 +1,86 @@
+\documentclass{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fullpage}
+\usepackage{mathtools}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathcal{P}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\cis}{cis}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{Math 430 -- Problem Set 7 Solutions}
+\date{Due April 22, 2016}
+
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+\item[18.10.] 
+\begin{enumerate}
+\item Prove that every field contains a unique prime subfield.
+\begin{solution} 
+Suppose that $F$ is a field, and let $E$ be the intersection of all subfields of $F$.  We show that $E$ is the unique prime subfield of $F$.
+
+Note that $0, 1 \in E$, so $E$ is nonempty.  If $a, b \in E$ then $a, b \in L$ for every subfield $L$ of $F$, so $a+b$, $a-b$, $ab$ and $a/b$ are in $L$, and thus all in $E$.  Thus $E$ is a subfield.
+
+If $L \subset E$ is a proper subfield, then $L$ is a subfield of $F$ as well.  This contradicts the definition of $E$, since $E$ is contained in every subfield of $F$.  Thus $E$ is a prime field.
+
+Finally, supposed $E'$ is another prime subfield of $F$.  By the construction of $E$, $E \subseteq E'$.  Since $E'$ is a prime subfield, we must have $E' = E$.
+\end{solution}
+\item If $F$ is a field of characteristic $0$, prove that the prime subfield of $F$ is isomorphic to $\QQ$.
+\begin{solution} 
+Define a homomorphism $\phi : \ZZ \to F$ by $\phi(n) = n \cdot 1_F$.  Since $F$ has characteristic $0$, this homomorphism is injective, so its image is a subring of $F$ isomorphic to $\ZZ$.  Now by Theorem 18.4, $F$ contains a subfield isomorphic to $\QQ$.  Since $\QQ$ has no subfields it is prime, and thus by part (a) is the unique prime subfield of $F$.
+\end{solution}
+\item If $F$ is a field of characteristic $p$, prove that the prime subfield of $F$ is isomorphic to $\ZZ_p$.
+\begin{solution} 
+Define $\phi : \ZZ \to F$ as in part (b).  Since $F$ has characteristic $p$, $\phi$ has kernel $p\ZZ$ and thus by the first isomorphism theorem its image is isomorphic to $\ZZ/p\ZZ$, which is a prime field.  By part (a), this is the unique prime subfield of $F$.
+\end{solution}
+\end{enumerate}
+\item[18.11. (d)] Prove that $\ZZ[\sqrt{2}i]$ is a Euclidean domain under the Euclidean valuation $\nu(a + b\sqrt{2}i) = a^2 + 2b^2$.
+\begin{solution}
+I first claim that $\nu(xy) = \nu(x)\nu(y)$ for $x, y \in \QQ[\sqrt{2}i]$, since
+\begin{align*}
+\nu((a+b\sqrt{2}i)(c+d\sqrt{2}i)) &= \nu((ac - 2bd) + (ad + bc)\sqrt{2}i) \\
+&= (ac - 2bd)^2 + 2(ad + bc)^2 \\
+&= a^2c^2 + 2a^2d^2 + 2b^2c^2 + 4b^2d^2 \\
+\nu(a+b\sqrt{2}i)\nu(c+d\sqrt{2}i) &= (a^2 + 2b^2)(c^2 + 2d^2) \\
+&= a^2c^2 + 2a^2d^2 + 2b^2c^2 + 4b^2d^2.
+\end{align*}
+For nonzero $a + b\sqrt{2}i \in \ZZ[\sqrt{2}i]$ we have $\nu(a + b\sqrt{2}i) = a^2 + 2b^2 \ge 1$.  Thus $\nu(x) \le \nu(xy)$ for $x,y \in \ZZ[\sqrt{2}i]$ with $y \ne 0$.
+
+Now suppose $a + b\sqrt{2}i, c+d\sqrt{2}i \in \ZZ[\sqrt{2}i]$ with $c + d\sqrt{2}i$ nonzero.  Let $q_1$ be the closest integer to $\frac{ac + 2bd}{c^2 + 2d^2}$ and $q_2$ the closest integer to $\frac{bc - ad}{c^2 + 2d^2}$.  Define $s_1, s_2, r_1, r_2$ by
+\begin{align*}
+s_1 + s_2\sqrt{2}i &= (\frac{ac + 2bd}{c^2 + 2d^2} + \frac{bc - ad}{c^2 + 2d^2}\sqrt{2}i) - (q_1 + q_2\sqrt{2}i), \\
+r_1 + r_2 \sqrt{2}i &= (a + b\sqrt{2}i) - (q_1 + q_2\sqrt{2}i)(c + d\sqrt{2}i).
+\end{align*}
+We need to show that $r_1^2 + 2r_2^2 < c^2 + 2d^2$.  Note that $\lvert s_1 \rvert \le 1/2$ and $\lvert s_2 \rvert \le 1/2$ by the definition of $q_1$ and $q_2$.  Moreover,
+\[
+(s_1 + s_2\sqrt{2}i)(c + d\sqrt{2}i) = (a + b\sqrt{2}i) - (q_1 + q_2\sqrt{2}i)(c + d\sqrt{2}i) = r_1 + r_2\sqrt{2}i.
+\]
+Thus
+\[
+\nu(r_1 + r_2\sqrt{2}i) = \nu(s_1 + s_2\sqrt{2}i)\nu(c + d\sqrt{2}i) \le (\frac14 + 2 \cdot \frac14) \nu(c + d\sqrt{2}i) < \nu(c + d\sqrt{2}i)
+\]
+as desired.
+\end{solution}
+\item[18.14.] Let $D$ be a Euclidean domain with Euclidean valuation $\nu$.  If $u$ is a unit in $D$, show that $\nu(u) = \nu(1)$.
+\begin{solution}
+Since $u$ is a unit we can find $v \in D$ with $uv = 1$.  Then $\nu(u) \le \nu(uv) = \nu(1) \le \nu(1 \cdot u) = \nu(u)$.  So all of the inequalities must be equalities and we have $\nu(u) = \nu(1)$.
+\end{solution}
+\item[18.17.] Prove or disprove: Every subdomain of a UFD is also a UFD.
+\begin{solution}
+We showed in class that $\ZZ + x\QQ[x]$ was not a UFD.  But $\ZZ + x\QQ[x]$ is a subdomain of $\QQ[x]$, which is a UFD.
+\end{solution}
+\end{enumerate}
+
+\end{document}

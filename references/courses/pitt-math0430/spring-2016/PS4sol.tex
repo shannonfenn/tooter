@@ -1,0 +1,237 @@
+\documentclass{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fullpage}
+\usepackage{mathtools}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathcal{P}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\SL}{SL}
+\DeclareMathOperator{\cis}{cis}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{Math 430 -- Problem Set 4 Solutions}
+\date{Due March 18, 2016}
+
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+\item[9.8.] Prove that $\QQ$ is not isomorphic to $\ZZ$.
+\begin{solution} 
+Suppose that $\phi : \QQ \to \ZZ$ is an isomorphism.  Since $\phi$ is surjective, there is an $x \in \QQ$ with $\phi(x) = 1$.  Then $2 \phi(x/2) = \phi(x) = 1$, but there is no integer $n$ with $2n = 1$.  Thus $\phi$ cannot exist.
+\end{solution}
+\item[9.12.] Prove that $S_4$ is not isomorphic to $D_{12}$.
+\begin{solution}
+Note that $D_{12}$ has an element of order $12$ (rotation by $30$ degrees), while $S_4$ has no element of order $12$.  Since orders of elements are preserved under isomorphisms, $S_4$ cannot be isomorphic to $D_{12}$.
+\end{solution}
+\item[9.23.] Prove or disprove the following assertion.  Let $G, H,$ and $K$ be groups. If $G \times K \cong H \times K$, then $G \cong H$.
+\begin{solution}
+Take $K = \prod_{i=1}^\infty \ZZ$ and $G = \ZZ$ and $H = \ZZ \times \ZZ$.  Then
+\[
+G \times K \cong K \cong H \times K
+\]
+but $G \not\cong H$.  Thus the assertion is false.
+
+Note that the assertion is true if $K$ is finite, but it's difficult to show.  Many people tried to used an isomorphism $\phi : G \times K \to H \times K$ to construct an isomorphism $G \to H$.  The difficulty is that $\phi$ does not necessarily map $G \times \{1\}$ to $H \times \{1\}$ (and if it does, it may not be surjective).
+\end{solution}
+\item[9.29.] Show that $S_n$ is isomorphic to a subgroup of $A_{n+2}$.
+\begin{solution}
+Let $\tau = (n+1, n+2) \in S_{n+2}$.  Identifying $S_n$ with the subgroup of $S_{n+2}$ that fix $n+1$ and $n+2$, we define
+\begin{align*}
+\phi : S_n &\to A_{n+2} \\
+\sigma &\mapsto \begin{cases} \sigma & \mbox{if $\sigma$ even} \\
+\sigma \tau & \mbox{if $\sigma$ odd} \end{cases}
+\end{align*}
+We check that $\phi$ is an injective homomorphism.  Note that $\sigma \tau = \tau \sigma$ for all $\sigma \in S_n$.  Then
+\[
+\phi(\sigma_1 \sigma_2) = \begin{cases}
+\sigma_1 \sigma_2 = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ even, $\sigma_2$ even,} \\
+\sigma_1 \sigma_2 \tau = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ even, $\sigma_2$ odd,} \\
+\sigma_1 \tau \sigma_2 = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ odd, $\sigma_2$ even,} \\
+\sigma_1 \sigma_2 \tau^2 = \phi(\sigma_1)\phi(\sigma_2) & \mbox{if $\sigma_1$ odd, $\sigma_2$ odd.}
+\end{cases}
+\]
+Thus $\phi$ is a homomorphism.  Moreover, since $\sigma \tau$ is never $1$ and $\phi$ is the identity on $A_n$, $\phi$ is injective.  Thus it defines an isomorphism with its image, a subgroup of $A_{n+2}$.
+\end{solution}
+\item[9.41.] Let $G$ be a group and $g \in G$. Define a map $i_g : G \to G$ by $i_g(x) = gxg^{-1}$. Prove that $i_g$ defines an automorphism of $G$.
+\begin{solution}
+Since $i_g(xy) = gxyg^{-1} = gxg^{-1}gyg^{-1} = i_g(x)i_g(y)$, we see that $i_g$ is a homomorphism.  It is injective: if $i_g(x) = 1$ then $gxg^{-1} = 1$ and thus $x = 1$.  And it is surjective: if $y \in G$ then $i_g(g^{-1}yg) = y$.  Thus it is an automorphism.
+\end{solution}
+\item[10.4.] Let $T$ be the group of nonsingular upper triangular $2 \times 2$ matrices with entries in $\RR$; that is, matrices of the form
+\[
+\begin{pmatrix} a & b \\ 0 & c \end{pmatrix},
+\]
+where $a, b, c \in \RR$ and $ac \ne 0$. Let $U$ consist of matrices of the form
+\[
+\begin{pmatrix} 1 & x \\ 0 & 1 \end{pmatrix},
+\]
+where $x \in \RR$.
+\begin{enumerate}
+\item Show that $U$ is a subgroup of $T$.
+\begin{solution}
+Taking $x = 0$, we see that the identity matrix is in $U$.  The inverse of $\begin{psmallmatrix} 1 & x \\ 0 & 1 \end{psmallmatrix}$ is $\begin{psmallmatrix} 1 & -x \\ 0 & 1 \end{psmallmatrix}$, which is also in $U$.  Finally,
+\[
+\begin{pmatrix} 1 & x \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 1 & y \\ 0 & 1 \end{pmatrix} = \begin{pmatrix} 1 & x+y \\ 0 & 1 \end{pmatrix},
+\]
+which is in $U$.
+\end{solution}
+\item Prove that $U$ is abelian.
+\begin{solution}
+This follows from the formula for multiplication of elements of $U$ given above, together with the commutativity of addition in $\RR$.
+\end{solution}
+\item Prove that $U$ is normal in $T$.
+\begin{solution}
+\begin{align*}
+\begin{pmatrix} a & b \\ 0 & c \end{pmatrix} \begin{pmatrix} 1 & x \\ 0 & 1 \end{pmatrix} \begin{pmatrix} a & b \\ 0 & c \end{pmatrix}^{-1} &= \begin{pmatrix} a & ax+b \\ 0 & c \end{pmatrix} \begin{pmatrix} 1/a & -b/(ac) \\ 0 & 1/c \end{pmatrix} \\
+&= \begin{pmatrix} 1 & ax/c \\ 0 & 1 \end{pmatrix}
+\end{align*}
+\end{solution}
+\item Show that $T/U$ is abelian.
+\begin{solution}
+Note that
+\[
+\begin{pmatrix} a & b \\ 0 & c \end{pmatrix} = \begin{pmatrix} a & 0 \\ 0 & c \end{pmatrix} \begin{pmatrix} 1 & b/a \\ 0 & 1 \end{pmatrix},
+\]
+so every coset in $T/U$ has a representative that is a diagonal matrices.  Since diagonal matrices commute with each other, $T/U$ is commutative.
+
+Alternatively, note that
+\begin{align*}
+\begin{pmatrix} a & b \\ 0 & c \end{pmatrix} \begin{pmatrix} a' & b' \\ 0 & c' \end{pmatrix} \begin{pmatrix} a & b \\ 0 & c \end{pmatrix}^{-1} \begin{pmatrix} a' & b' \\ 0 & c' \end{pmatrix}^{-1} &= \begin{pmatrix} aa' & ab' + bc' \\ 0 & cc' \end{pmatrix} \begin{pmatrix} 1/(aa') & -(b'c+bc')/(aca'c') \\ 0 & 1/(cc') \end{pmatrix} \\
+&= \begin{pmatrix} 1 & (ab' -b'c)/(cc') \\ 0 & 1 \end{pmatrix}.
+\end{align*}
+Since $U$ contains the commutator subgroup of $T$, $T/U$ is abelian by 10.14.
+\end{solution}
+\item Is $T$ normal in $\GL_2(\RR)$?
+\begin{solution}
+No.  For example,
+\[
+\begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} \begin{pmatrix} 0 & 1 \\ 1 & 0 \end{pmatrix} = \begin{pmatrix} 1 & 0 \\ 1 & 1 \end{pmatrix}.
+\]
+\end{solution}
+\end{enumerate}
+\item[10.7.] Prove or disprove: If $H$ is a normal subgroup of $G$ such that $H$ and $G/H$ are abelian, then $G$ is abelian.
+\begin{solution}
+$U \triangleleft T$ from the previous problem provides a counterexample, as does $A_3 \triangleleft S_3$.
+\end{solution}
+\item[10.9.] Prove or disprove: If $H$ and $G/H$ are cyclic, then $G$ is cyclic.
+\begin{solution}
+$A_3 \triangleleft S_3$ provides a counterexample, as does $\ZZ_2 \triangleleft \ZZ_2 \times \ZZ_2$.
+\end{solution}
+\item[10.14.] Let $G$ be a group and let $G' = \langle aba^{-1}b^{-1} \rangle$; that is, $G'$ is the subgroup of all finite products of elements in $G$ of the form $aba^{-1}b^{-1}$. The subgroup $G'$ is called the commutator subgroup of $G$.
+\begin{enumerate}
+\item Show that $G'$ is a normal subgroup of $G$.
+\begin{solution}
+Suppose $\gamma = aba^{-1}b^{-1}$ is a generator of $G'$.  Since $g\gamma g^{-1} = (gag^{-1})(gbg^{-1})(gag^{-1})^{-1}(gbg^{-1})^{-1}$, we have that $g\gamma g^{-1} \in G'$.  Since conjugation by $g$ is a homomorphism, every product of such elements will also be an element of $G'$.  Thus $G'$ is normal.
+
+Alternatively, note that $g\gamma g^{-1} = g\gamma g^{-1} \gamma^{-1} \gamma \in G'$ since $\gamma \in G'$ and $g\gamma g^{-1} \gamma^{-1}$ is a commutator.
+\end{solution}
+\item Let $N$ be a normal subgroup of $G$.  Prove that $G/N$ is abelian if and only if $N$ contains the commutator subgroup of $G$.
+\begin{solution}
+Suppose $a, b \in G$.  Then
+\begin{align*}
+(aN)(bN) = (bN)(aN) &\Leftrightarrow Nab = Nba \\
+&\Leftrightarrow Naba^{-1}b^{-1} = N \\
+&\Leftrightarrow aba^{-1}b^{-1} \in N.
+\end{align*}
+So 
+\begin{align*}
+\mbox{$G/N$ is abelian} &\Leftrightarrow \mbox{$(aN)(bN) = (bN)(aN)$ for all $a, b \in G$} \\
+&\Leftrightarrow \mbox{$aba^{-1}b^{-1} \in N$ for all $a, b \in G$} \\
+&\Leftrightarrow G' \subseteq N.
+\end{align*}
+\end{solution}
+\end{enumerate}
+\item[11.2.] Which of the following maps are homomorphisms? If the map is a homomorphism, what is the kernel?
+\begin{enumerate}
+\item $\phi : \RR^* \to \GL_2(\RR)$ defined by 
+\[
+\phi(a) = \begin{pmatrix} 1 & 0 \\ 0 & a \end{pmatrix}
+\]
+\begin{solution}
+This is a homomorphism since $\begin{psmallmatrix} 1 & 0 \\ 0 & a \end{psmallmatrix} \begin{psmallmatrix} 1 & 0 \\ 0 & b \end{psmallmatrix} = \begin{psmallmatrix} 1 & 0 \\ 0 & ab \end{psmallmatrix}$.  The kernel is $\{1\} \subset \RR^*$.
+\end{solution}
+\item $\phi : \RR \to \GL_2(\RR)$ defined by 
+\[
+\phi(a) = \begin{pmatrix} 1 & 0 \\ a & 1 \end{pmatrix}
+\]
+\begin{solution}
+This is a homomorphism since $\begin{psmallmatrix} 1 & 0 \\ a & 1 \end{psmallmatrix} \begin{psmallmatrix} 1 & 0 \\ b & a \end{psmallmatrix} = \begin{psmallmatrix} 1 & 0 \\ a+b & 1 \end{psmallmatrix}$.  The kernel is $\{0\} \subset \RR$.
+\end{solution}
+\item $\phi : \GL_2(\RR) \to \RR$ defined by 
+\[
+\phi\left(\begin{pmatrix} a & b \\ c & d \end{pmatrix}\right) = a + d
+\]
+\begin{solution}
+This is not a homomorphism since it maps the identity to $2$, which is not the identity in $\RR$.
+\end{solution}
+\item $\phi : \GL_2(\RR) \to \RR^*$ defined by 
+\[
+\phi\left(\begin{psmallmatrix} a & b \\ c & d \end{psmallmatrix}\right) = ad - bc
+\]
+\begin{solution}
+This is a homomorphism, since
+\begin{align*}
+\phi\left(\begin{pmatrix} a & b \\ c & d \end{pmatrix}\begin{pmatrix} a' & b' \\ c' & d' \end{pmatrix}\right) &= \phi\left(\begin{pmatrix} aa'+bc' & ab'+bd' \\ ca'+dc' & cb'+dd' \end{pmatrix}\right) \\
+&= (aa'+bc')(cb'+dd') - (ab'+bd')(ca'+dc') \\
+&= ada'd' + bcb'c' - adb'c' - bca'd' \\
+&= (ad - bc)(a'd' - b'c') \\
+&= \phi\left(\begin{pmatrix} a & b \\ c & d \end{pmatrix}\right) \phi\left(\begin{pmatrix} a' & b' \\ c' & d' \end{pmatrix}\right).
+\end{align*}
+The kernel is $\SL_2(\RR)$, the subgroup of $\GL_2(\RR)$ consisting of matrices of determinant $1$.
+\end{solution}
+\item $\phi : \mathbb{M}_2(\RR) \to \RR$ defined by 
+\[
+\phi\left(\begin{psmallmatrix} a & b \\ c & d \end{psmallmatrix}\right) = b,
+\]
+where $\mathbb{M}_2(\RR)$ is the additive group of $2 \times 2$ matrices with entries in $\RR$.
+\begin{solution}
+This is a homomorphism, since
+\[
+\phi\left(\begin{pmatrix} a & b \\ c & d \end{pmatrix} + \begin{pmatrix} a' & b' \\ c' & d' \end{pmatrix}\right) = b + b' = \phi\left(\begin{pmatrix} a & b \\ c & d \end{pmatrix}\right) + \phi\left(\begin{pmatrix} a' & b' \\ c' & d' \end{pmatrix}\right).
+\]
+The kernel is the group (under addition) of lower triangular matrices:
+\[
+\left\{\begin{pmatrix} a & 0 \\ b & c \end{pmatrix} : a, b, c \in \RR\right\}.
+\]
+\end{solution}
+\end{enumerate}
+\item[11.9.] If $\phi : G \to H$ is a group homomorphism and $G$ is abelian, prove that $\phi(G)$ is abelian.
+\begin{solution}
+If $x, y \in \phi(G)$ then there exist $a,b \in G$ with $x = \phi(a)$ and $y = \phi(b)$.  Then $xy = \phi(a)\phi(b) = \phi(ab) = \phi(ba) = \phi(b)\phi(a) = yx$, so $\phi(G)$ is abelian.
+\end{solution}
+\item[11.15.] Let $G_1$ and $G_2$ be groups, and let $H_1$ and $H_2$ be normal subgroups of $G_1$ and $G_2$ respectively. Let $\phi : G_1 \to G_2$ be a homomorphism. Show that $\phi$ induces a natural homomorphism $\bar{\phi} : (G_1 / H_1) \to (G_2 / H_2)$ if $\phi(H_1) \subseteq H_2$.
+\begin{solution}
+We define $\bar{\phi}(gH_1) = \phi(g)H_2$ for $g \in G_1$.  We show that this is well defined. If $g'H_1 = gH_1$ then $g'g^{-1} \in H_1$ so $\phi(g'g^{-1}) \in \phi(H_1) \subseteq H_2$.  Thus $\phi(g')\phi(g)^{-1} \in H_2$, so $\bar{\phi}(g'H_1) = \phi(g')H_2 = \phi(g)H_2 = \bar{\phi}(gH_1)$.
+
+It is also a homomorphism, since 
+\begin{align*}
+\bar{\phi}((gH_1)(g'H_1)) &= \bar{\phi}(gg'H_1) \\
+&= \phi(gg')H_2 \\
+&= \phi(g)\phi(g')H_2 \\
+&= (\phi(g)H_2)(\phi(g')H_2) \\
+&= \bar{\phi}(gH_1) \bar{\phi}(g'H_1).
+\end{align*}
+\end{solution}
+\item[11.19.] Given a homomorphism $\phi : G \to H$ define a relation $\sim$ on $G$ by $a \sim b$ if $\phi(a) = \phi(b)$ for $a, b \in G$.  Show this relation is an equivalence relation and describe the equivalence classes.
+\begin{solution}
+Checking the conditions for an equivalence relation is straightforward: $a \sim a$ since $\phi(a) = \phi(a)$; if $a \sim b$ then $\phi(a) = \phi(b)$ and thus $b \sim a$; if $a \sim b$ and $b \sim c$ then $\phi(a) = \phi(b) = \phi(c)$ so $a \sim c$.
+
+The equivalence classes are precisely the cosets of $K = \ker(\phi)$, since
+\begin{align*}
+a \sim b &\Leftrightarrow \phi(a) = \phi(b) \\
+&\Leftrightarrow \phi(ab^{-1}) = 1 \\
+&\Leftrightarrow ab^{-1} \in K \\
+&\Leftrightarrow aK = bK.
+\end{align*}
+\end{solution}
+\end{enumerate}
+
+\end{document}

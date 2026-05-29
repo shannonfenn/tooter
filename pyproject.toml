@@ -1,0 +1,32 @@
+[project]
+name = "learning-abstract-algebra-judson"
+version = "0.1.0"
+description = "Study workspace for Judson's Abstract Algebra: Theory and Applications."
+requires-python = ">=3.12"
+dependencies = [
+  "sympy>=1.14",
+]
+
+[dependency-groups]
+dev = [
+  "hypothesis>=6.131",
+  "pytest>=8.3",
+  "ruff>=0.11",
+]
+
+[tool.uv]
+cache-dir = ".uv-cache"
+package = false
+
+[tool.pytest.ini_options]
+pythonpath = ["code/python/src"]
+testpaths = ["code/python/tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["code/python/src", "code/python/tests", "scripts"]
+extend-exclude = [".cache", ".uv-cache", ".venv", "references"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]

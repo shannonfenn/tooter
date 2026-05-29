@@ -1,0 +1,189 @@
+\documentclass{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{fullpage}
+\usepackage{mathtools}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathcal{P}}
+\DeclareMathOperator{\GL}{GL}
+\DeclareMathOperator{\cis}{cis}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{Math 430 -- Problem Set 3 Solutions}
+\date{}
+
+\begin{document}
+\maketitle
+
+
+\begin{enumerate}
+\item[4.14.] Let $A = \begin{psmallmatrix} 0 & 1 \\ -1 & 0 \end{psmallmatrix}$ and $B = \begin{psmallmatrix} 0 & -1 \\ 1 & -1 \end{psmallmatrix}$ be elements in $\GL_2(\RR)$.  Show that $A$ and $B$ have finite orders but $AB$ does not.
+\begin{solution} $ $
+\begin{itemize}
+\item $A^2 = \begin{psmallmatrix} -1 & 0 \\ 0 & -1 \end{psmallmatrix}, A^3 = \begin{psmallmatrix} 0 & -1 \\ 1 & 0 \end{psmallmatrix},$ and $A^4 = \begin{psmallmatrix} 1 & 0 \\ 0 & 1 \end{psmallmatrix}$ so $A$ has order $4$.
+\item $B^2 = \begin{psmallmatrix} -1 & 1 \\ -1 & 0 \end{psmallmatrix}$ and $B^3 = \begin{psmallmatrix} 1 & 0 \\ 0 & 1 \end{psmallmatrix}$ so $B$ has order $3$.
+\item I claim that $(AB)^n = \begin{psmallmatrix} 1 & -n \\ 0 & 1 \end{psmallmatrix}$.  $AB = \begin{psmallmatrix} 1 & -1 \\ 0 & 1 \end{psmallmatrix}$, which is the base case, and $\begin{psmallmatrix} 1 & -1 \\ 0 & 1 \end{psmallmatrix} \cdot \begin{psmallmatrix} 1 & -n \\ 0 & 1 \end{psmallmatrix} = \begin{psmallmatrix} 1 & -n-1 \\ 0 & 1 \end{psmallmatrix}$, which is the induction step.  Thus $(AB)^n$ is never the identity matrix for $n>0$ and $AB$ has infinite order.
+\end{itemize}
+\end{solution}
+\item[4.15(c).] Evaluate $(5 - 4i)(7+2i)$.
+\begin{solution}
+\[
+(5 - 4i)(7+2i) = 35  + 10i - 18i +8 = 43 - 18i.
+\]
+\end{solution}
+\item[4.15(f).] Evaluate $(1+i) + \overline{(1 + i)}$.
+\begin{solution}
+\[
+(1+i) + \overline{(1 + i)} = 1 + i + 1 - i = 2
+\]
+\end{solution}
+\item[4.16(c).] Convert $3\cis(\pi)$ to the form $a + bi$.
+\begin{solution}
+\[
+3\cis(\pi) = 3(\cos(\pi) + i\sin(\pi) = -3
+\]
+\end{solution}
+\item[4.17(c).] Change $2 + 2i$ to polar representation.
+\begin{solution}
+Using the formulas $r = \sqrt{a^2 + b^2}$ and $\theta = \tan^{-1}(b/a)$ (which holds since $2+2i$ is in the first quadrant), we get $r = \sqrt{8}$ and $\theta = \tan^{-1}(1)$ so $2 + 2i = 2\sqrt{2}\cis(\pi/4)$.
+\end{solution}
+\item[4.27.] If $g$ and $h$ have orders $15$ and $16$ respectively in a group $G$, what is the order of $\langle g \rangle \cap \langle h \rangle$?
+\begin{solution}
+The intersection $\langle g \rangle \cap \langle h \rangle$ is a subgroup of both $\langle g \rangle$ and $\langle h \rangle$.  By Lagrange's theorem, its order must therefore divide both $15$ and $16$.  Since $\gcd(15,16) = 1$, we get that $\lvert \langle g \rangle \cap \langle h \rangle \rvert = 1$.
+\end{solution}
+\item[5.2(c).] Compute $(143)(23)(24)$.
+\begin{solution}
+\[
+(143)(23)(24) = (14)(23)
+\]
+\end{solution}
+\item[5.2(i).] Compute $(123)(45)(1254)^{-2}$.
+\begin{solution}
+Since $(1254)$ has order $4$, $(1254)^{-2} = (1254)^2 = (15)(24).$ Thus
+\[
+(123)(45)(1254)^{-2} = (123)(45)(15)(24) = (143)(25)
+\]
+\end{solution}
+\item[5.2(n).] Compute $(12537)^{-1}$.
+\begin{solution}
+We reverse the order of the cycle, yielding
+\[
+(12537)^{-1} = (73521) = (17352).
+\]
+\end{solution}
+\item[5.7.] Find all possible orders of elements in $S_7$ and $A_7$.
+\begin{solution}
+Orders of permutations are determined by least common multiple of the lengths of the cycles in their decomposition into disjoint cycles, which correspond to partitions of $7$.
+
+\begin{tabular}{l|l|l}
+Representative Cycle & Order & Sign \\
+\hline
+$()$ & 1 & Even \\
+$(12)$ & 2 & Odd \\
+$(123)$ & 3 & Even \\
+$(1234)$ & 4 & Odd \\
+$(12345)$ & 5 & Even \\
+$(123456)$ & 6 & Odd \\
+$(1234567)$ & 7 & Even \\
+$(12)(34)$ & 2 & Even \\
+$(12)(345)$ & 6 & Odd \\
+$(12)(3456)$ & 4 & Even \\
+$(12)(34567)$ & 10 & Odd \\
+$(123)(456)$ & 3 & Even \\
+$(123)(4567)$ & 12 & Odd \\
+$(12)(34)(56)$ & 2 & Odd \\
+$(12)(34)(567)$ & 6 & Even
+\end{tabular}
+
+Therefore the orders of elements in $S_7$ are $1,2,3,4,5,6,7,10,12$ and the orders of elements in $A_7$ are $1,2,3,4,5,6,7$.
+\end{solution}
+\item[5.16.] Find the group of rigid motions of a tetrahedron. Show that this is the same group as $A_4$.
+\begin{solution}
+Let $G$ be the group of rigid motions.  Label the vertices of the tetrahedron $1,2,3,4$.  A rotation is determined by where it sends vertex $1$ (four possibilities) and the orientation of the edges emanating from that vertex (three possibilities).  So there are $12$ elements in $G$.  Define a map $\phi$ from $G$ to the symmetric group on the vertices by mapping a given rotation to the permutation it induces on the vertices.  There are eight rotations of order $3$ that fix a single vertex and rotate around the axis connecting that vertex to the center of the opposite face.  The images of these rotations under $\phi$ are $\{(123),(132),(124),(142),(134),(143),(234),(243)\}$.  There are three rotations of order $2$ around the axis between midpoints of opposite edges.  The images of these rotations under $\phi$ are $\{(12)(34),(13)(24),(14)(23)\}$.  Together with the identity, this gives all twelve rotations.  The image of $\phi$ is $A_4$, it is injective, and it preserves the group operation (since the operation is function composition in both cases), so $\phi$ gives an isomorphism between the group of rigid motions of the tetrahedron and $A_4$.
+\end{solution}
+\item[5.23.] If $\sigma$ is a cycle of odd length, prove that $\sigma^2$ is also a cycle.
+\begin{solution}
+Write $\sigma = (\alpha_0, \dots, \alpha_{m-1})$ in cycle notation.  Certainly $\sigma^2$ doesn't move any elements of $\{1, \dots, n\}$ other than the $\alpha_i$.  Since $(\sigma^2)^i(\alpha_0) = \alpha_{2i \mod m}$ are distinct for $i = 0, \dots, m-1$ (because $2$ is relatively prime to $m$), $\sigma^2$ is an $m$-cycle.
+\end{solution}
+\item[5.26.] Prove that any element can be written as a finite product of the following permutations.
+\begin{enumerate}
+\item $(12),(13),\dots,(1n)$
+\begin{solution}
+Every element of $S_n$ can be written as a product of transpositions, and any transposition $(ab)$ can be written as $(1a)(1b)(1a)$.  Thus $(12),(13),\dots,(1n)$ generate $S_n$.
+\end{solution}
+\item $(12),(23),\dots,(n-1,n)$
+\begin{solution}
+We prove by induction that $(1k)$ can be written in terms of $(12),(23),\dots,(n-1,n)$ for $k = 2,3,\dots,n$.  The base case is clear: $(12) = (12)$.  The induction step follows from the identity $(1,k+1) = (1k)(k,k+1)(1k)$. By part (a), the set $(12),(13),\dots,(1n)$ generates $S_n$, and thus $(12),(23),\dots,(n-1,n)$ does as well.
+\end{solution}
+\item $(12),(12\dots n)$
+\begin{solution}
+We prove by induction that $(k-1,k)$ can be written in terms of $(12),(12\dots n)$ for $k = 2,3,\dots,n$.  The base case is again clear: $(12) = (12)$.  The induction step follows from the identity $(k,k+1) = (12\dots n)(k-1,k)(n\dots21).$  By part (b), the set $(12),(23),\dots,(n-1,n)$ generates $S_n$, and thus $(12),(12\dots n)$ does as well.
+\end{solution}
+\end{enumerate}
+\item[5.30.] Let $\tau = (a_1, a_2, \dots, a_k)$ be a cycle of length $k$.
+\begin{enumerate}
+\item Prove that if $\sigma$ is any permutation, then
+\[
+\sigma\tau\sigma^{-1} = (\sigma(a_1),\sigma(a_2),\dots,\sigma(a_k))
+\]
+is a cycle of length $k$.
+\begin{solution}
+Let $L = \sigma \cdot \tau$ and $R = (\sigma(a_1),\sigma(a_2),\dots,\sigma(a_k)) \cdot \sigma$.  We show that $L = R$ by proving that $L(x) = R(x)$ for $x = 1,2,\dots, n$.  There are two cases: $x = a_i$ for some $i$ and $x \ne a_i$ for any $i$.  If $x = a_i$ then
+\[
+L(x) = \sigma\tau(a_i) = \sigma(a_{i+1}),
+\]
+where we set $a_{k+1} = a_1$ by convention.  Since 
+\[
+R(x) = (\sigma(a_1),\sigma(a_2),\dots,\sigma(a_k))(\sigma(a_i)) = \sigma(a_{i+1}),
+\]
+$L$ and $R$ have the same value on $x$.
+
+If $x \ne a_i$ then $x$ is fixed by $\tau$ and thus $L(x) = \sigma(x)$.  Similarly, $\sigma(x)$ is fixed by the cycle $(\sigma(a_1),\sigma(a_2),\dots,\sigma(a_k))$ so $R(x) = \sigma(x)$.
+
+Since $L = R$, we also have $L\sigma^{-1} = R\sigma^{-1}$.
+\end{solution}
+\item Let $\mu$ be a cycle of length $k$. Prove that there is a permutation $\sigma$ such that $\sigma\tau\sigma^{-1} = \mu$.
+\begin{solution}
+Let $\mu = (b_1,b_2, \dots, b_k)$.  For $i = 1, \dots, k$ define $\sigma(a_i) = b_i$.  Since the sets $X = \{1, \dots, n\} - \{a_1, \dots, a_k\}$ and $Y = \{1, \dots, n\} - \{b_1, \dots, b_k\}$ both have cardinality $n-k$, there exists a bijection $\phi$ between them.  Set $\sigma(x) = \phi(x)$ for $x \ne a_i$.  Then $\sigma \in S_n$ and, by part (a), $\sigma\tau\sigma^{-1} = \mu$.
+\end{solution}
+\end{enumerate}
+\item[6.5(f).] List the left and right cosets of $D_4$ in $S_4$.
+\begin{solution}
+Label the vertices of the square $1,2,3,4$ in clockwise order.  Then the elements of $D_4$, as a subgroup of $S_4$, are 
+\[
+\{(), (1234), (13)(24), (1432), (12)(34), (14)(23), (13), (24)\},
+\]
+and this set is both a left and right coset.
+
+Since $(12) \not\in D_4$,
+\[
+(12)D_4 = \{(12), (234), (1324), (143), (34), (1423), (132), (124)\}
+\]
+is another left coset of $D_4$.  Moreover, since $g_1H = g_2H \Leftrightarrow Hg_1^{-1} = Hg_2^{-1}$, the set consisting of the inverses of these elements is a right coset of $D_4$:
+\[
+D_4(12) = \{(12), (243), (1423), (134), (34), (1324), (123), (142)\}
+\]
+Finally, we can construct the remaining left coset by collecting the remaining elements,
+\[
+(14)D_4 = \{(14), (23), (123), (142), (134), (243), (1243), (1342)\},
+\]
+and the remaining right coset likewise:
+\[
+D_4(14) = \{(14), (23), (132), (124), (143), (234), (1342), (1243)\}.
+\]
+\end{solution}
+\item[6.15.] Show that any two permutations $\alpha, \beta \in S_n$ have the same cycle structure if and only if there exists a permutation $\gamma$ such that $\beta = \gamma \alpha \gamma^{-1}$.
+\begin{solution}
+Suppose first that $\beta = \gamma\alpha\gamma^{-1}$, and let $\alpha = \alpha_1\alpha_2\dots\alpha_k$ be a decomposition of $\alpha$ into disjoint cycles.  Then $\beta = (\gamma\alpha_1\gamma^{-1})(\gamma\alpha_2\gamma^{-1})\dots(\gamma\alpha_k\gamma^{-1})$.  By 5.30(a), $(\gamma\alpha_i\gamma^{-1})$ is a cycle of the same length as $\alpha_i$, and if $i \ne j$ then $(\gamma\alpha_i\gamma^{-1})$ is disjoint from $(\gamma\alpha_j\gamma^{-1})$.  Thus the cycle structures of $\alpha$ and $\beta$ are the same.
+
+Conversely, suppose that $\alpha$ and $\beta$ have the same cycle structure.  Then we get write $\alpha = \alpha_1\alpha_2\dots\alpha_k$ and $\beta = \beta_1\beta_2\dots\beta_k$, with $\alpha_i = (a_1, \dots, a_{n_i})$ and $\beta_i = (b_1, \dots, b_{n_i})$.  Let $X$ be the complement of the $a_{i,j}$ in $\{1, \dots, n\}$ and let $Y$ be the complement of the $b_{i,j}$.  Then the cardinality of $X$ is the same as the cardinality of $Y$, and we may choose a bijection $\gamma$ between them.  Extending $\gamma$ to all of $\{1, \dots, n\}$ by setting $\gamma(a_{i,j}) = b_{i,j}$ yields a permutation, and by 5.30(a), $\beta = \gamma\alpha\gamma^{-1}$.
+\end{solution}
+\end{enumerate}
+
+\end{document}

@@ -1,0 +1,98 @@
+edb3986 Added 2021 cover image
+390f3e1 Sage: fix -1 in Quaternion Cayley table (reported by Robert D. Poodiack)
+76326eb xref edits to galois.xml
+49f6eee xref updates to fields and galois chapters
+6d452cf removing conflicts
+9b62aff updating xrefs in finite.xml
+7d1856e fixing xrefs in boolean fields vect finite
+7229515 Correct title of table of small groups in Sage
+c39b8ad updating xrefs in domains and poly
+1c10dbc xmlid update for sylow.xml
+2256719 fxing xrefs in actions.xml
+4964076 updating xrefs in struct and matrix
+432c06f edits to xrefs in homomorph.xml
+cfc74c6 edits to xrefs in normal and isomorph.xml
+09b5fb4 updating xrefs in algcodes.xml
+f9f880c revising xrefs to permute.xml
+aa9a22f finished updating xrefs
+945741e making side-by-side diagrams in matrix.xml
+79ec358 adding new tikz files for matrix.xml
+66f153c Fixing the stztement of Proposition 14.21
+ae4c150 fixing side-by-side figures in matrix.xml
+058aabb merging braille
+f142129 udating side-by-sides in matrix.xml
+55f541b side-by-sides in matrix.xml fixed
+50d0ca0 coverting images to side-by-side
+8644389 updating side-by-side figures in matrix.xml
+49b720d side-by-side diagram in actions.xml
+7ef1cdb side-by-side diagram in actions.xml
+69a2c49 side-by-side diagrams in actions.xml and actions.xml
+c4b9be1 side-by-side diagrams in matrix.xml
+f79d9a9 editing side-by-sides for boolean.xml
+1e44b7f editing actions.xml for side-by-sides
+15b2dc9 adding tikz files
+6366ed8 fixing merge
+7cb0073 edits to side-by-sides in matrix.xml
+80b53c4 working on Fig 12.21
+5274ca2 restoring original figure 12.21
+a56caaa fixing urls
+c67e07c Typo: a_! to a_1 (PR #59)
+18e4e19 fixing label deprecation in ol
+1c7680e fixing the statment of Theorem 5.21
+e0f02eb changed copyright dates from 2021 to 2022
+ea58832 updated sage version to 9.6 in frontmatter.xml
+67a6244 Minor typos in a Sage exercise
+52117b6 Edits for SageMath doctests, Sage 9.6, GAP 4.11.1
+db5b8f7 Date change for Annual Edition 2022
+b770488 added 2022 cover
+7d01196 Adjust document id for Runestone hosting
+0aa80ed Add a blurb to the bookinfo
+3f8983e added <response/> to reading quesitons
+2c28eef typos corrected in fields.xml and finite.xml
+afb128d Correct edition attribute on document-id
+412cf6b Labels onto reading questions in Groups chapter
+c70b81e corrected reference in actions.xml
+9c0b38d adding reference to the proof of Eisensteians Criterion
+29602b3 fixing duplicate permids
+7379f75 fixing duplicate permids
+2f24d51 adding <case> to proofs
+c1745be fixing idx in sets.xml
+c41e465 fixing idx tag
+9c19bf3 fixing idx tag
+09a52a7 fixing idx tag
+b6ab552 fixing idx tag
+5736ae9 added missing captions to 4 figures
+3045b2e fixed typo in the proof of Lemma 13.8
+d98aed6 updating copyright to 2023
+065eb32 Edits for SageMath doctests, Sage 10.0, GAP 4.12.2
+30ad145 date for 2023 edition
+897e883 updating aata website address
+fc1258f fixing index error in Section 8.4
+056ffad typos in struct.xml domains.xml and fields.xml fixed
+a771327 correction to the proof of Lemma 23.29
+bb5592d updating copyright dates from 2023 to 2024
+9782281 Adjust front matter website URL from deprecated version
+53ee7a3 Edits for SageMath doctests, Sage 10.3, GAP 4.12.2
+1e7667c Comment about procedures for annual editions
+a583aa2 Date change for Annual Edition 2024
+78369ab Remove obsolete @permid attributes
+6554195 fixing typos
+61b52e9 duplicate use of the word "especially"
+a0d687f fix a typo
+dae39aa fix a typo
+b6f3949 changed email address for judson to aata@judsonbooks.org
+4c8a32e updated historical note in matrix.xml
+64f0df4 fixing typo in sets.xml
+1bacaee fixing typo in sylow.xml
+f8fa1e7 fixing id to \identity
+44572c6 Merge pull request #73 from partev/patch-1
+7c3218e Merge pull request #74 from partev/patch-2
+70d5480 Merge pull request #75 from partev/patch-3
+e3331c5 changing 2024 to 2025
+d8c5447 changing 2024 to 2025
+bc8e683 adding labels to reading questions
+303026b adding labels to reading questions
+f06cd1d adding labels to reading questions
+08f8579 adding labels to reading questions
+614e88c Edits for SageMath doctests, Sage 10.6, GAP 4.14.0
+edeee7a Further comments about procedures for annual editions

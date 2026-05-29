@@ -1,0 +1,165 @@
+\documentclass{article}
+
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{graphicx}
+\usepackage{fullpage}
+\usepackage{tikz}
+
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\PP}{\mathcal{P}}
+
+\theoremstyle{definition}
+\newtheorem*{solution}{Solution}
+
+\title{Math 430 -- Problem Set 1 Solutions}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{enumerate}
+\item[1.2.] If $A = \{a,b,c\}, B = \{1,2,3\}, C = \{x\},$ and $D = \varnothing$, list all of the elements of each of the following sets.
+\begin{enumerate}
+\item $A \times B$
+\begin{solution}
+$$\{(a,1),(a,2),(a,3),(b,1),(b,2),(b,3),(c,1),(c,2),(c,3)\}.$$
+\end{solution}
+\item $B \times A$
+\begin{solution}
+$$\{(1,a),(1,b),(1,c),(2,a),(2,b),(2,c),(3,a),(3,b),(3,c)\}.$$
+\end{solution}
+\item $A \times B \times C$
+\begin{solution}
+$$\{(a,1,x),(a,2,x),(a,3,x),(b,1,x),(b,2,x),(b,3,x),(c,1,x),(c,2,x),(c,3,x)\}.$$
+\end{solution}
+\item $A \times D$
+\begin{solution}
+$$\emptyset.$$
+Note that $\{\emptyset\}$ is not correct: this is the set containing $\emptyset$.
+\end{solution}
+\end{enumerate}
+\item[1.6.] Prove $(A \cup B) \cap (A \cup C) = A \cup (B \cap C)$.
+\begin{solution}
+Suppose $x \in A \cup (B \cap C)$.  Then, either $x \in A$ (case 1) or $x \in B \cap C$ (case 2).  Since $A \subseteq A \cup B$ and $A \subseteq A \cup C$, in case 1 we get that $x \in A \cup B$ and $x \in A \cup C$ and thus $x \in (A \cup B) \cap (A \cup C)$.  In case 2, since $x \in B$ and $B \subseteq A \cup B$, we know $x \in A \cup B$.  Similarly, since $x \in C$ and $C \subseteq A \cup C$, we know $x \in (A \cup C)$.  So in both cases, $x \in (A \cup B) \cap (A \cup C)$ and therefore $A \cup (B \cap C) \subseteq (A \cup B) \cap (A \cup C)$.
+
+Conversely, suppose $x \in (A \cup B) \cap (A \cup C)$.  If $x \in A,$ then $x \in A \cup (B \cap C)$.  Alternatively, if $x \not\in A$ then $x$ must be in $B$ and in $C$ since $x \in (A \cup B)$ and $x \in (A \cup C)$.  Thus $x \in (B \cap C)$.  Therefore $(A \cup B) \cap (A \cup C) \subseteq A \cup (B \cap C)$.  With both inclusions proven, we get $(A \cup B) \cap (A \cup C) = A \cup (B \cap C)$. \qed
+\end{solution}
+\item[1.17.] Which of the following relations $f : \QQ \to \QQ$ define a mapping?  In each case, supply a reason why $f$ is or is not a mapping.
+\begin{enumerate}
+\item $f(p/q) = \frac{p+1}{p-2}$
+\begin{solution}
+Note that $1/2 = 3/6$, but $f(1/2) = -2$ while $f(3/6) = 4$.  Since $f$ is multivalued, it is not a function.
+\end{solution}
+\item $f(p/q) = \frac{3p}{3q}$
+\begin{solution}
+This is a function.  If $p/q = p'/q'$ then $\frac{3p}{3q} = \frac{p}{q} = \frac{p'}{q'} = \frac{3p'}{3q'}$.
+\end{solution}
+\item $f(p/q) = \frac{p+q}{q^2}$
+\begin{solution}
+Note that $1/2 = 2/4$, but $f(1/2) = \frac{3}{4}$ while $f(2/4) = \frac{6}{16}$.  Since $f$ is multivalued, it is not a function.
+\end{solution}
+\item $f(p/q) = \frac{3p^2}{7q^2} - \frac{p}{q}$
+\begin{solution}
+This is a function.  If $p/q = p'/q'$ then $pq' = qp'$.  Thus
+\begin{align*}
+f(p/q) &= \frac{3p^2}{7q^2} - \frac{p}{q} \\
+&= \frac{3p^2(q')^2}{7q^2(q')^2} - \frac{p'}{q'} \\
+&= \frac{3(pq')^2}{7q^2(q')^2} - \frac{p'}{q'} \\
+&= \frac{3(p'q)^2}{7q^2(q')^2} - \frac{p'}{q'} \\
+&= \frac{3(p')^2q^2}{7(q')^2q^2} - \frac{p'}{q'} \\
+&= \frac{3(p')^2}{7(q')^2} - \frac{p'}{q'} \\
+&= f(p'/q').
+\end{align*}
+\end{solution}
+\end{enumerate}
+\item[1.20.]
+\begin{enumerate}
+\item Define a function $f : \NN \to \NN$ that is one-to-one but not onto.
+\begin{solution}
+The function $f(n) = n+1$ is one-to-one (if $n+1 = m+1$ then $n=m$) but not onto ($1$ is not in the image since $0 \not\in \NN$).
+\end{solution}
+\item Define a function $f : \NN \to \NN$ that is onto but not one-to-one.
+\begin{solution}
+The function $f(n) = \lceil n/2 \rceil$ is onto (given $m$, $f(2m) = m$) but not one-to-one ($f(1) = f(2) = 1$).
+\end{solution}
+\end{enumerate}
+\item[1.22.] Let $f : A \to B$ and $g : B \to C$ be maps.
+\begin{enumerate}
+\item If $f$ and $g$ are both one-to-one functions, show that $g \circ f$ is one-to-one.
+\begin{solution}
+Suppose $a, a' \in A$ with $g(f(a)) = g(f(a'))$.  Since $g$ is one-to-one, $f(a) = f(a')$.  Since $f$ is one-to-one, $a = a'$.  Thus $g \circ f$ is one-to-one. \qed
+\end{solution}
+\item If $g \circ f$ is onto, show that $g$ is onto.
+\begin{solution}
+Suppose $c \in C$.  Since $g \circ f$ is onto, there is an $a \in A$ with $g(f(a)) = c$.  Setting $b = f(a)$, we have $b \in B$ with $g(b) = c$.  Thus $g$ is onto. \qed
+\end{solution}
+\item If $g \circ f$ is one-to-one, show that $f$ is one-to-one.
+\begin{solution}
+Suppose that $a, a' \in A$ with $f(a) = f(a')$.  Then $g(f(a)) = g(f(a'))$.  Since $g\circ f$ is one-to-one, $a = a'$.  Thus $f$ is one-to-one. \qed
+\end{solution}
+\item If $g \circ f$ is one-to-one and $f$ is onto, show that $g$ is one-to-one.
+\begin{solution}
+By (c), $f$ is one-to-one and thus bijective.  Therefore it has an inverse, so $g = g \circ (f \circ f^{-1}) = (g \circ f) \circ f^{-1}$ is the composition of one-to-one functions and is thus one-to-one. \qed
+\end{solution}
+\item If $g \circ f$ is onto and $g$ is one-to-one, show that $f$ is onto.
+\begin{solution}
+One can argue as in part (d), or as follows.  Suppose $b \in B$.  Since $g \circ f$ is onto, there is an $a \in A$ with $g(f(a)) = g(b)$.  Since $g$ is one-to-one, $f(a) = b$.  Thus $f$ is onto. \qed
+\end{solution}
+\end{enumerate}
+\item[1.25.] Determine whether or not the following relations are equivalence relations on the given set.  If the relation is an equivalence relation, describe the partition given by it.  If the relation is not an equivalence relation, state why it fails to be one.
+\begin{enumerate}
+\item $x \sim y$ in $\RR$ if $x \ge y$
+\begin{solution}
+This relation is not an equivalence relation since it is not symmetric: $2 \sim 1$ but $1 \not\sim 2$.
+\end{solution}
+\item $m \sim y$ in $\ZZ$ if $mn > 0$
+\begin{solution}
+This relation is not an equivalence relation since it is not reflexive: $0 \not\sim 0$.
+\end{solution}
+\item $x \sim y$ in $\RR$ if $\lvert x - y \rvert \le 4$
+\begin{solution}
+This relation is not an equivalence relation since it is not transitive: $0 \sim 3$ and $3 \sim 6$ but $0 \not\sim 6$.
+\end{solution}
+\item $m \sim n$ in $\ZZ$ if $m \equiv n \pmod{6}$
+\begin{solution}
+This relation is an equivalence relation.  The partition are the congruence classes modulo $6$: $0 + 6\ZZ, 1 + 6\ZZ, 2 + 6\ZZ, 3 + 6\ZZ, 4 + 6\ZZ$ and $5 + 6\ZZ$.
+\end{solution}
+\end{enumerate}
+\item[1.28.] Find the error in the following argument by providing a counterexample.  ``The reflexive property is redundant in the axioms for an equivalence relation.  If $x \sim y$, then $y \sim x$ by the symmetric property.  Using the transitive property, we can deduce that $x \sim x.$''
+\begin{solution}
+The problem is that, given $x$, there may be no $y$ with $x \sim y$.  For example, for any set $X$, consider the empty relation where $x \sim y$ is never true.  This is symmetric and transitive, but not reflexive.
+\end{solution}
+\item[2.9.] Use induction to prove that $1 + 2 + 2^2 + \dots + 2^n = 2^{n+1} - 1$ for $n \in \NN$.
+\begin{solution}
+For the base case of $n=1$, we have $1 + 2 = 2^2 - 1$.
+
+Suppose that $1 + 2 + 2^2 + \dots + 2^{n-1} = 2^n - 1$.  Then
+\begin{align*}
+1 + 2 + 2^2 + \dots + 2^{n-1} + 2^n &= (2^n - 1) + 2^n \\
+&= 2 \cdot 2^n - 1 \\
+&= 2^{n+1} - 1.
+\end{align*}
+The result then holds by induction. \qed
+\end{solution}
+\item[2.12.] For every positive integer $n$, show that a set with exactly $n$ elements has a power set with exactly $2^n$ elements.
+\begin{solution}
+We prove this statement by induction.  If $X = \{x\}$ has one element, then $\PP(X) = \{\emptyset, \{x\}\}$ has two elements and the base case holds.
+
+Now assume that the statement holds for a given positive integer $n$.  Let $X = \{a_1, \dots, a_{n+1}\}$ have $n+1$ elements.  Let
+\begin{align*}
+P_{\mathrm{in}} &= \{A \in \PP(X)\ \vert\ a_{n+1} \in A\} \\
+P_{\mathrm{out}} &= \{A \in \PP(X)\ \vert\ a_{n+1} \not\in A\}
+\end{align*}
+Since every $A \in \PP(X)$ either contains $a_{n+1}$ or does not, $\PP(X) = P_{\mathrm{in}} \sqcup P_{\mathrm{out}}$ is a disjoint union of $P_{\mathrm{in}}$ and $P_{\mathrm{out}}$ and thus the number of elements in $\PP(X)$ is the sum of the sizes of $P_{\mathrm{in}}$ and of $P_{\mathrm{out}}$.  Since $P_{\mathrm{out}} = \PP(\{a_1, \dots, a_n\})$, it has $2^n$ elements by the induction hypothesis.  The function
+\begin{align*}
+P_{\mathrm{out}} &\to P_{\mathrm{in}} \\
+A &\mapsto A \cup \{a_{n+1}\}
+\end{align*}
+is a bijection, and thus $P_{\mathrm{in}}$ and $P_{\mathrm{out}}$ have the same size.  Therefore, $\PP(X)$ has size $2^n + 2^n = 2^{n+1}$. \qed
+\end{solution}
+\end{enumerate}
+
+\end{document}

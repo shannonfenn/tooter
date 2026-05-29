@@ -1,0 +1,14 @@
+.DS_Store
+.cache/
+.uv-cache/
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.hypothesis/
+.ruff_cache/
+target/
+*.aux
+*.log
+*.out
+*.synctex.gz
