@@ -4,8 +4,8 @@ Status values: `not-started`, `reading`, `exercises`, `review`, `complete`, `ref
 
 | Ch | AATA topic | Study mode | Status | Pitt first | MIT backup | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | Preliminaries | full | not-started | yes | limited | Proofs, sets, equivalence relations. |
-| 2 | The Integers | full | not-started | yes | limited | Induction, division algorithm, Euclidean algorithm. |
+| 1 | Preliminaries | full | complete | yes | limited | Completed before tutor-agent kickoff. |
+| 2 | The Integers | full | complete | yes | limited | Completed before tutor-agent kickoff; starter Euclidean algorithm code exists in Python and Rust. |
 | 3 | Groups | full | not-started | yes | yes | Start of core group theory. |
 | 4 | Cyclic Groups | full | not-started | yes | yes | Include programming exercises. |
 | 5 | Permutation Groups | full | not-started | yes | yes | Check 2025 correction to Theorem 5.21. |
@@ -27,4 +27,3 @@ Status values: `not-started`, `reading`, `exercises`, `review`, `complete`, `ref
 | 21 | Fields | full | not-started | optional | optional | Field extensions start. |
 | 22 | Finite Fields | full | not-started | optional | optional | Important for algebra/CS connections. |
 | 23 | Galois Theory | full | not-started | optional | optional | Check 2025 correction to Lemma 23.29. |
-
