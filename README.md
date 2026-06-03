@@ -24,6 +24,15 @@ Workspace for self-study of Thomas W. Judson's *Abstract Algebra: Theory and App
 
 ## Common Commands
 
+With `just` installed:
+
+```sh
+just exercise ch02_integers
+just check
+```
+
+Without `just`:
+
 ```sh
 uv sync
 uv run python code/python/exercises/ch02_integers.py

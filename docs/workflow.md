@@ -26,6 +26,13 @@ Use this sequence when asking an agent for help:
 
 ## Coding Loop
 
+With `just` installed:
+
+```sh
+just exercise ch02_integers
+just check
+```
+
 For Python:
 
 ```sh

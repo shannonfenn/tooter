@@ -81,6 +81,8 @@ See `docs/pedagogy-for-tutoring.md` for the research basis and diagnostic MCQ pa
 
 ```sh
 uv sync
+just exercise ch02_integers
+just check
 uv run python code/python/exercises/ch02_integers.py
 cargo run --example ch02_integers
 uv run pytest
