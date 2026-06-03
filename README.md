@@ -9,7 +9,7 @@ Workspace for self-study of Thomas W. Judson's *Abstract Algebra: Theory and App
 - Primary exercise filter: Pitt Math 0430, especially Fall 2017 first, then Spring 2016 as supplemental.
 - Secondary reference: MIT OCW 18.703 lecture notes and assignments.
 - Coverage: all AATA chapters, with Chapter 7 (Cryptography) and Chapter 20 (Vector Spaces) treated as refresh chapters because they were already studied independently.
-- Code workflow: implement a mathematical routine in Python first, add tests, then implement the same behavior in Rust.
+- Code workflow: write runnable Python exercises first, then implement the same idea as runnable Rust examples. Add checks only when they clarify a mathematical invariant.
 - Sage workflow: use Sage/Runestone examples for computation-heavy algebra exploration, keeping local `.sage` files under `sage/`.
 
 ## Layout
@@ -19,19 +19,25 @@ Workspace for self-study of Thomas W. Judson's *Abstract Algebra: Theory and App
 - `references/`: downloaded PDFs, course pages, problem sets, solutions, and generated diffs.
 - `notes/`: chapter notes and reading summaries.
 - `sage/`: local Sage examples and experiments.
-- `code/python/`: Python implementations and tests run through `uv`.
-- `code/rust/`: Rust workspace and crates for corresponding implementations.
+- `code/`: runnable Python/Rust coding exercises and optional checks.
 - `scripts/`: resource fetch and AATA diff helpers.
 
 ## Common Commands
 
 ```sh
 uv sync
-uv run pytest
-uv run ruff check
+uv run python code/python/exercises/ch02_integers.py
 ```
 
 ```sh
+cargo run --example ch02_integers
+```
+
+Optional checks:
+
+```sh
+uv run pytest
+uv run ruff check
 cargo test
 ```
 

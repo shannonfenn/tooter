@@ -2,4 +2,4 @@
 
 | Chapter | Exercise/topic | Python status | Rust status | Tests | Notes |
 | --- | --- | --- | --- | --- | --- |
-| 2 | Euclidean algorithm and Bezout coefficients | started | started | Python property tests, Rust unit tests | Starter implementation in `code/python/src/aata_judson/integers.py` and `code/rust/aata_judson/src/lib.rs`; both test suites pass. |
+| 2 | Euclidean algorithm and Bezout coefficients | started | started | Optional Python property checks, Rust unit checks | Runnable Python script: `code/python/exercises/ch02_integers.py`; runnable Rust example: `cargo run --example ch02_integers`. |

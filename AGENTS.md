@@ -70,17 +70,19 @@ See `docs/pedagogy-for-tutoring.md` for the research basis and diagnostic MCQ pa
 ## Code Workflow
 
 - Python is managed by `uv`; run Python commands with `uv run`.
-- Put Python implementations in `code/python/src/aata_judson/`.
-- Put Python tests in `code/python/tests/`.
-- Put Rust implementations in `code/rust/aata_judson/src/`.
-- Implement Python first, then Rust with matching behavior and tests.
-- Use property tests when algebraic laws are being claimed.
+- Prefer runnable exercise files over package-style code.
+- Put Python exercises in `code/python/exercises/` and run them directly with `uv run python`.
+- Put reusable Rust routines in `code/rust/aata_judson/src/` and runnable examples in `code/rust/aata_judson/examples/`.
+- Implement Python first, then Rust with matching behavior.
+- Add checks/tests only when they sharpen mathematical feedback, such as testing an invariant over many inputs.
 - Keep chapter-specific code direct until repetition justifies abstraction.
 
 ## Local Commands
 
 ```sh
 uv sync
+uv run python code/python/exercises/ch02_integers.py
+cargo run --example ch02_integers
 uv run pytest
 uv run ruff check
 cargo test

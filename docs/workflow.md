@@ -10,8 +10,8 @@
 6. Use Judson hints only after an honest attempt.
 7. Use Pitt solutions for feedback, not as the starting point.
 8. Add one or more Sage checks when computation can clarify the structure.
-9. Implement any programming exercise in Python with tests.
-10. Implement the same behavior in Rust with matching tests.
+9. Implement any programming exercise as a runnable Python file.
+10. Implement the same behavior as a runnable Rust example.
 11. Update `tracking/progress.md` and `tracking/code-exercises.md`.
 
 ## Tutoring Loop
@@ -29,12 +29,19 @@ Use this sequence when asking an agent for help:
 For Python:
 
 ```sh
-uv run pytest
-uv run ruff check
+uv run python code/python/exercises/ch02_integers.py
 ```
 
-For Rust, after installing Rust:
+For Rust:
 
 ```sh
+cargo run --example ch02_integers
+```
+
+Optional checks:
+
+```sh
+uv run pytest
+uv run ruff check
 cargo test
 ```

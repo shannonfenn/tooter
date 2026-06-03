@@ -1,9 +1,8 @@
 from __future__ import annotations
 
+from exercises.ch02_integers import extended_gcd, gcd
 from hypothesis import given
 from hypothesis import strategies as st
-
-from aata_judson import extended_gcd, gcd
 
 
 @given(st.integers(), st.integers())

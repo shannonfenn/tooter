@@ -19,13 +19,13 @@ cache-dir = ".uv-cache"
 package = false
 
 [tool.pytest.ini_options]
-pythonpath = ["code/python/src"]
-testpaths = ["code/python/tests"]
+pythonpath = ["code/python"]
+testpaths = ["code/python/checks"]
 
 [tool.ruff]
 line-length = 100
 target-version = "py312"
-src = ["code/python/src", "code/python/tests", "scripts"]
+src = ["code/python/exercises", "code/python/checks", "scripts"]
 extend-exclude = [".cache", ".uv-cache", ".venv", "references"]
 
 [tool.ruff.lint]
