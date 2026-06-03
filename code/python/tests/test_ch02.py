@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from exercises.ch02_integers import extended_gcd, gcd
+from exercises.ch02 import extended_gcd, gcd
 from hypothesis import given
 from hypothesis import strategies as st
 
@@ -23,4 +23,3 @@ def test_extended_gcd_bezout_identity(a: int, b: int) -> None:
 
     assert g == gcd(a, b)
     assert a * x + b * y == g
-

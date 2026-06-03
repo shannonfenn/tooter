@@ -1,4 +1,4 @@
-use aata_judson::ch02_integers::extended_gcd;
+use aata_judson::ch02::extended_gcd;
 
 fn main() {
     let examples = [(252, 198), (101, 23), (-84, 30)];
@@ -9,4 +9,3 @@ fn main() {
         println!("  check: {a}*{x} + {b}*{y} = {}", a * x + b * y);
     }
 }
-

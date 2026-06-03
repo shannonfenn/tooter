@@ -81,11 +81,11 @@ See `docs/pedagogy-for-tutoring.md` for the research basis and diagnostic MCQ pa
 
 ```sh
 uv sync
-just exercise ch02_integers
+just exercise ch02
 just test
 just check
-uv run python code/python/exercises/ch02_integers.py
-cargo run --example ch02_integers
+uv run python code/python/exercises/ch02.py
+cargo run --example ch02
 uv run pytest
 uv run ruff check
 cargo test

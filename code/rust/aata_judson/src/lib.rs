@@ -1,4 +1,3 @@
-pub mod ch02_integers;
+pub mod ch02;
 
-pub use ch02_integers::{extended_gcd, gcd};
-
+pub use ch02::{extended_gcd, gcd};

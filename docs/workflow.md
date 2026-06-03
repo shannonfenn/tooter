@@ -29,7 +29,7 @@ Use this sequence when asking an agent for help:
 With `just` installed:
 
 ```sh
-just exercise ch02_integers
+just exercise ch02
 just test
 just check
 ```
@@ -37,13 +37,13 @@ just check
 For Python:
 
 ```sh
-uv run python code/python/exercises/ch02_integers.py
+uv run python code/python/exercises/ch02.py
 ```
 
 For Rust:
 
 ```sh
-cargo run --example ch02_integers
+cargo run --example ch02
 ```
 
 Optional tests and lint:

@@ -9,13 +9,13 @@ Put runnable Python exercise files in `code/python/exercises/`.
 Run one with `just`:
 
 ```sh
-just py ch02_integers
+just py ch02
 ```
 
 Or run it directly:
 
 ```sh
-uv run python code/python/exercises/ch02_integers.py
+uv run python code/python/exercises/ch02.py
 ```
 
 If a computation has a useful mathematical invariant, add an optional test in `code/python/tests/` and run:
@@ -38,13 +38,13 @@ The split exists because Cargo distinguishes library code from executable exampl
 Run one with `just`:
 
 ```sh
-just rs ch02_integers
+just rs ch02
 ```
 
 Or run it directly:
 
 ```sh
-cargo run --example ch02_integers
+cargo run --example ch02
 ```
 
 Run optional Rust tests:
@@ -57,13 +57,13 @@ cargo test
 
 Use chapter-prefixed names so the mapping is obvious:
 
-- `ch02_integers.py`
-- `src/ch02_integers.rs`
-- `examples/ch02_integers.rs`
-- `test_ch02_integers.py`
+- `ch02.py`
+- `src/ch02.rs`
+- `examples/ch02.rs`
+- `test_ch02.py`
 
 The learner-facing command should still be the same exercise name:
 
 ```sh
-just exercise ch02_integers
+just exercise ch02
 ```
