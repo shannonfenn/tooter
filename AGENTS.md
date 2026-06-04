@@ -59,6 +59,35 @@ Use diagnostic MCQs as a fast probe, not as a replacement for proof writing.
 
 See `docs/pedagogy-for-tutoring.md` for the research basis and diagnostic MCQ pattern.
 
+## Covered-Work Discipline
+
+Keep tutoring, assessment, coding recommendations, diagnostic quizzes, and chapter exit checks scoped to the material the user has covered. Covered work means:
+
+- chapters marked `complete` or `refresh` in `tracking/progress.md`;
+- the current chapter the user is actively studying;
+- any additional prior knowledge the user explicitly asks to include.
+
+Before using a definition, theorem, term, or proof method as required knowledge, verify that it appears in the current chapter or a completed earlier chapter. If a later concept is useful, label it explicitly as a preview and do not make it part of the assessment standard.
+
+Occasional extensions are welcome when they orient the user without distracting from the current work. Use them sparingly and label them clearly:
+
+- intra-curricular extension: "We will learn a better way to do this in Chapter X";
+- extra-curricular extension: "This concept is extended by Y in the field of Z."
+
+Do not turn these extensions into detours unless the user asks.
+
+When assessing solution attempts:
+
+- judge the solution using only covered definitions, propositions, examples, and proof patterns;
+- do not criticize the absence of later terminology or later methods;
+- identify whether a proposed refinement is within-scope or a later-chapter preview;
+- prefer the chapter's own criteria and examples over more advanced abstractions.
+
+Examples:
+
+- In Chapter 3, distinguish groups using tools available there, such as Cayley tables, commutativity, subgroup structure, and concrete element behavior. Do not require isomorphism language unless the user asks for a preview.
+- In Chapter 3, do not use element order, cyclic subgroups, generated subgroups, or subgroup generation as completion criteria; those belong to Chapter 4 unless explicitly introduced as previews.
+
 ## Exercise Workflow
 
 - Use `docs/pitt-exercise-verification.md` instead of rechecking Pitt exercise numbers from scratch.
@@ -76,6 +105,7 @@ See `docs/pedagogy-for-tutoring.md` for the research basis and diagnostic MCQ pa
 - Implement Python first, then Rust with matching behavior.
 - Add tests only when they sharpen mathematical feedback, such as testing an invariant over many inputs.
 - Keep chapter-specific code direct until repetition justifies abstraction.
+- Recommend coding exercises only when they directly reinforce the current chapter's covered concepts. Defer programs that mainly exercise later definitions, and state which later chapter they belong to.
 
 ## Local Commands
 
