@@ -1,6 +1,6 @@
 # Pedagogy Notes for Agent Tutors
 
-This repo uses a compact tutoring policy in `AGENTS.md`. This file records the research basis so agents can consult it when designing help for a specific topic.
+This repo uses compact Pi project resources under `.pi/` for tutoring policy. This file records the research basis so agents can consult it when designing help for a specific topic.
 
 ## Practical Principles
 
