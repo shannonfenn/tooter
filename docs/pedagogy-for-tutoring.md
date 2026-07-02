@@ -1,6 +1,6 @@
 # Pedagogy Notes for Agent Tutors
 
-This repo uses compact Pi and OpenCode project resources under `.pi/` and `.opencode/` for generic mathematics tutoring policy. Text-specific policy lives in study packs under `studies/`. This file records the research basis so agents can consult it when designing help for a specific topic.
+This repo uses compact project resources for generic mathematics tutoring policy. Text-specific policy lives in study packs under `studies/`. This file records the research basis so agents can consult it when designing help for a specific topic.
 
 ## Practical Principles
 

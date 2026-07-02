@@ -10,7 +10,7 @@
 6. Use Judson hints only after an honest attempt.
 7. Use Pitt solutions for feedback, not as the starting point.
 8. Add one or more Sage checks when computation can clarify the structure.
-9. Implement any programming exercise as a runnable Python file.
+9. Implement any programming exercise as a runnable Python or Sage file.
 10. Update `state/progress.md` and `state/code-exercises.md`.
 
 ## Tutoring Loop
@@ -23,15 +23,13 @@ Use this sequence when asking an agent for help:
 4. Ask the agent to identify which concept failed if an answer is wrong.
 5. After correction, ask for one transfer problem that tests the same idea.
 
-## Coding Loop
+## Computational Learning Loop
 
 With `just` installed:
 
 ```sh
 just ch03-groups
 just exercise ch03_groups
-just test
-just check
 ```
 
 For Python:
@@ -40,16 +38,13 @@ For Python:
 uv run python studies/judson-aata/code/python/exercises/ch03_groups.py
 ```
 
-Optional tests and lint:
+Ask Codex or another development agent for repository maintenance commands such as full test/lint runs or reference refreshes:
 
 ```sh
+just test
+just check
 uv run pytest
 uv run ruff check
-```
-
-Refresh downloaded references:
-
-```sh
 uv run python studies/judson-aata/scripts/fetch_references.py
 studies/judson-aata/scripts/update_aata_diff.sh
 ```

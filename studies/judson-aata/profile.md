@@ -15,17 +15,17 @@ Chapter 7 (Cryptography) and Chapter 20 (Vector Spaces) are refresh chapters bec
 - tutoring that improves understanding, not just answer lookup;
 - assessment of typed or handwritten solution attempts pasted directly into chat, including images;
 - Sage examples and computational exploration;
-- Python implementations managed with `uv`.
+- Python programming exercises managed with `uv`.
 
 ## Pack Files
 
-- `workflow.md`: AATA study loop and tutoring/coding workflow.
+- `workflow.md`: AATA study loop, tutoring loop, and programming exercise workflow.
 - `source-priority.md`: AATA-specific source order.
 - `resource-map.md`: local and external reference map.
 - `pedagogy-overrides.md`: AATA-specific pedagogy examples and overrides.
 - `exercises/`: curated exercise-selection data.
 - `editions/`: edition/version notes.
-- `state/`: mutable learner state, including chapter progress and coding exercise status.
+- `state/`: mutable learner state, including chapter progress and programming exercise status.
 - `code/`: AATA-specific runnable Python exercises, tests, and Sage experiments.
 - `scripts/`: AATA-specific reference-fetch and edition-diff helpers.
 

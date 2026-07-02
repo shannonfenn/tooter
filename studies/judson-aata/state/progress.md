@@ -5,7 +5,7 @@ Status values: `not-started`, `reading`, `exercises`, `review`, `complete`, `ref
 | Ch | AATA topic | Study mode | Status | Pitt first | MIT backup | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | 1 | Preliminaries | full | complete | yes | limited | Completed before tutor-agent kickoff. |
-| 2 | The Integers | full | complete | yes | limited | Completed before tutor-agent kickoff; starter Euclidean algorithm code exists in Python. |
+| 2 | The Integers | full | complete | yes | limited | Completed before tutor-agent kickoff; Euclidean algorithm Sage sketch exists in the pack-local code directory. |
 | 3 | Groups | full | complete | yes | yes | Completed core group and subgroup exercises; Section 3.6 treated as optional modular-arithmetic application. |
 | 4 | Cyclic Groups | full | not-started | yes | yes | Include programming exercises. |
 | 5 | Permutation Groups | full | not-started | yes | yes | Check 2025 correction to Theorem 5.21. |
