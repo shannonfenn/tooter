@@ -1,61 +1,40 @@
 # Tooter
 
-Tooter is a workspace for self-study of mathematics texts using reusable Pi/OpenCode pedagogy roles and text-specific study packs. The active study pack is currently Thomas W. Judson's *Abstract Algebra: Theory and Applications* (AATA).
+Workbench for a personal AI math-tutoring system. This repo owns the two
+portable contracts — the **tutor-core** prose and the **state layer** — and
+compiles them outward; the tutoring itself happens in the sibling study
+workspace, [`tooter-studies`](../tooter-studies) (private), which is the
+tutor's working directory, always.
 
-## Active Study Pack
-
-- Active selector: `studies/active.md`.
-- Current pack: `studies/judson-aata/`.
-- Primary text: 2021 print/PDF edition of Judson AATA.
-- Text-specific policy, source priority, workflow, progress, and exercise tracking live in the active study pack.
-- Programming exercise workflow: write runnable Python or Sage exercises. Add tests only when they clarify a mathematical invariant.
-- Agent harnesses: Codex is used for repository development; Pi resources under `.pi/` and OpenCode resources under `.opencode/` provide teaching roles. This repo intentionally avoids `AGENTS.md` so general coding agents are not forced into tutor behavior.
+Architecture, phasing, and decision triggers: [docs/redesign-plan.md](docs/redesign-plan.md)
+(adopted 2026-07-06). In short: own two contracts, rent every surface.
 
 ## Layout
 
-- `studies/`: text-specific study packs, helper scripts, and the active-study selector.
-- `docs/`: cross-text pedagogy and harness documentation.
-- `references/`: downloaded PDFs, course pages, problem sets, solutions, and generated diffs.
-- `notes/`: chapter notes and reading summaries.
-- `.pi/`: Pi harness resources for tutoring, assessment, planning, and programming exercises.
-- `.opencode/`: OpenCode harness resources for the same pedagogical workflows.
+- `tutor/` — tutor-core sources: the `math-pedagogy` agent, the `/command`
+  moves, always-loaded instructions, skills, and the permission-enforced
+  `opencode.jsonc`. Compiled one-way into `tooter-studies` by `just deploy`.
+- `state-layer/` — the `tooter-state` Python package: chapter/exercise YAML
+  schemas, append-only attempt ledger, review scheduling, CLI face (a stdio
+  MCP face with the same functions arrives in Phase 1).
+- `scripts/deploy.py` — the compiler (dumb manifest copy + drift check).
+- `docs/` — the redesign plan, pedagogy reference (deployed to the tutor),
+  harness notes, and archived design-review research.
 
-## Agent Harnesses
-
-See `docs/agent-harnesses.md` for the v0 Pi/OpenCode setup, role boundaries, and usage notes.
-
-## Programming Exercise Commands
-
-With `just` installed:
+## Commands
 
 ```sh
-just ch03-groups
-just exercise ch03_groups
+just deploy            # compile tutor-core + config into ../tooter-studies
+just deploy --check    # drift check (run weekly, never at study-session start)
+just test              # state-layer tests
+just check             # tests + lint
+just install-state     # install the tooter-state CLI as an editable uv tool
 ```
 
-Without `just`:
+## The two-repo rule
 
-```sh
-uv sync
-uv run python studies/judson-aata/code/python/exercises/ch03_groups.py
-```
-
-## Development Commands
-
-Optional tests and lint:
-
-```sh
-just test
-just check
-uv run pytest
-uv run ruff check
-```
-
-Refresh downloaded references:
-
-```sh
-uv run python studies/judson-aata/scripts/fetch_references.py
-studies/judson-aata/scripts/update_aata_diff.sh
-```
-
-For the Judson AATA pack, start exercise selection from `studies/judson-aata/exercises/index.md`, then apply any known old-edition corrections from `studies/judson-aata/exercises/verification.md`.
+Dev agents (Claude Code / Codex) work only here, guided by `AGENTS.md`. The
+tutor works only in `tooter-studies`, guided by the deployed config. Neither
+repo's instructions can reach the other, and no ancestor directory of either
+may hold agent instruction/config files (the geometry invariant — see the
+studies repo README).

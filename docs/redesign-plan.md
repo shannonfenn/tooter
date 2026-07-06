@@ -158,13 +158,15 @@ Sage was an artifact of the first text, not a commitment. Generalize:
 
 Every later branch of the decision tree consumes these unchanged.
 
-- [ ] Create the `tooter-studies` private repo at `~/dev/src/github/tooter-studies`; move `studies/`, `references/`, `notes/`, `pyproject.toml`/`uv.lock`, study Justfile targets.
-- [ ] Verify the geometry invariant: no agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …) in any ancestor (`~/dev`, `~/dev/src`, `~/dev/src/github`); note the invariant in the studies repo's README.
-- [ ] **Delete `.pi/`** (unanimous across the design review).
-- [ ] Relocate `.opencode/*` prose into workbench `tutor/` sources; write the compile/deploy step (`just deploy`, `deploy --check`).
-- [ ] `tooter-studies/opencode.jsonc` with permission enforcement (§3.4); disable built-in `build`/`plan` agents.
-- [ ] State layer v1: package, YAML/JSONL schemas, CLI face, `seed_state.py` migrating `state/progress.md` + `state/code-exercises.md` (then delete `code-exercises.md`; `progress.md` survives as the boundary view).
-- [ ] Restore workbench `AGENTS.md` (dev-agent instructions); rewrite `docs/agent-harnesses.md` to point at this plan.
+- [x] Create the `tooter-studies` private repo at `~/dev/src/github/tooter-studies`; move `studies/`, `references/`, `notes/`, `pyproject.toml`/`uv.lock`, study Justfile targets.
+- [x] Verify the geometry invariant: no agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …) in any ancestor (`~/dev`, `~/dev/src`, `~/dev/src/github`); note the invariant in the studies repo's README.
+- [x] **Delete `.pi/`** (unanimous across the design review).
+- [x] Relocate `.opencode/*` prose into workbench `tutor/` sources; write the compile/deploy step (`just deploy`, `deploy --check`).
+- [x] `tooter-studies/opencode.jsonc` with permission enforcement (§3.4); disable built-in `build`/`plan` agents.
+- [x] State layer v1: package, YAML/JSONL schemas, CLI face, `seed_state.py` migrating `state/progress.md` + `state/code-exercises.md` (then delete `code-exercises.md`; `progress.md` survives as the boundary view).
+- [x] Restore workbench `AGENTS.md` (dev-agent instructions); rewrite `docs/agent-harnesses.md` to point at this plan.
+
+_Phase 0 executed 2026-07-06. Also done, from §11: opencode pinned at 1.17.13 (`brew pin opencode`) with the quarterly upgrade smoke checklist written into `agent-harnesses.md`; `just study` closes the external-skills leak found during verification._
 
 ### Phase 1 — surface + capture (second weekend)
 

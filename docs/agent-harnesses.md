@@ -1,47 +1,81 @@
 # Agent Harnesses
 
-This repo uses v0 CLI/app harness configuration only. Do not build a custom tutoring UI, orchestration service, or agent ecosystem until the plain Pi and OpenCode setups hit a clear capability limit.
+**This doc records operational harness facts for the v1 architecture.** The v0
+single-repo Pi/OpenCode posture this file used to describe was superseded on
+2026-07-06 by [redesign-plan.md](redesign-plan.md); Phase 0 of that plan
+executed the split. Pi is gone (`.pi/` deleted, unanimous across the design
+review). Read the plan first; this doc only pins the details the plan leaves
+operational.
 
-## Design Goal
+## Current shape
 
-Keep development and teaching roles separated:
+- **Two repos.** This workbench (dev agents: Claude Code / Codex, guided by
+  `AGENTS.md`) and `~/dev/src/github/tooter-studies` (the tutor's cwd, always).
+  The geometry invariant — no agent instruction/config files in `~/dev`,
+  `~/dev/src`, `~/dev/src/github` — makes instruction leakage between the two
+  roles impossible by construction. Verified 2026-07-06; re-verify whenever
+  something new lands in those directories.
+- **Tutor.** opencode primary agent `math-pedagogy`, compiled from `tutor/`
+  sources by `just deploy` into `tooter-studies/.opencode/` +
+  `opencode.jsonc`. The deployed config is enforcement, not prose: `edit` and
+  `bash` deny-by-default with narrow allowlists (state/attempts writable,
+  `tooter-state *`/`just *` runnable), built-in `build`/`plan` agents
+  disabled, sharing disabled.
+- **Moves.** `/hint`, `/assess-solution`, `/chapter-plan`, `/exit-check`,
+  `/transfer-problem` (Phase 1 adds `/start`, `/review-paper`, `/progress`).
+  The `/command` grammar is itself pedagogical ritual — keep it on every
+  surface.
+- **State.** `state-layer/` package; CLI `tooter-state` installed as an
+  editable uv tool (`just install-state` here, `just setup` in the studies
+  repo). MCP face with identical functions lands in Phase 1.
+- **Surfaces.** TUI is the always-working floor; `opencode web` becomes the
+  daily surface after the Phase-1 hour-one check (KaTeX + image attach on real
+  transcripts). `just study` in the studies repo launches the tutor with
+  external-skill discovery disabled (see leak note below).
+- **Drift.** `just deploy --check` — run on a weekly schedule, never at
+  study-session start (a maintenance prompt at study time is a study-killer).
 
-- Codex is the intended software-engineering agent for repository maintenance, documentation refactors, scripts, tests, harness setup, and commits.
-- Pi and OpenCode are intended teaching harnesses for tutoring, solution assessment, study planning, and programming exercises.
-- Teaching agents may update learner state or pack-local programming exercise files when that is part of a study interaction.
-- Teaching agents should not carry repository-development process instructions.
-- Do not reintroduce `AGENTS.md` for this project unless the goal changes to cross-harness always-on instructions.
+## opencode pin + upgrade ritual (plan §3.4, §11)
 
-## Pi
+- **Pinned: opencode 1.17.13**, Homebrew formula, `brew pin opencode` applied
+  2026-07-06. Upgrade with `brew unpin opencode && brew upgrade opencode`,
+  then re-pin.
+- Upgrades happen on a **scheduled quarterly evening**, never mid-study-week.
+  opencode moves fast and its web assets are proxied from app.opencode.ai, so
+  an upgrade is a deliberate act against this smoke checklist:
+  1. **Permission semantics** — in `tooter-studies`: an edit outside
+     `studies/*/state/**` / `studies/*/attempts/**` is denied; `tooter-state due`
+     and `just --list` run without prompts; any other bash command is denied;
+     `opencode agent list` shows `math-pedagogy` and does **not** show
+     `build`/`plan`.
+  2. **KaTeX rendering** — a real transcript with inline and display math
+     renders in `opencode web` (Phase 1 onward).
+  3. **Image attach** — a real page scan attaches and is readable in the
+     session (Phase 1 onward).
+  4. **Discovery** — `/hint` et al. appear in the command palette;
+     `opencode debug skill` (with the `just study` env vars) lists exactly the
+     four `math-*` skills.
+  5. **Deploy integrity** — `just deploy --check` still reports clean.
+- Rollback: `brew` keeps the previous keg; `brew switch`-style rollback is
+  gone, so reinstall the pinned version from the formula history if a smoke
+  step fails, and re-pin.
 
-Pi uses:
+## Known leak, closed operationally
 
-- `.pi/APPEND_SYSTEM.md` for teaching-harness orientation and guardrails.
-- `.pi/skills/*/SKILL.md` for generic mathematics pedagogical roles.
-- `.pi/prompts/*.md` for common tutoring and planning prompts.
+opencode auto-loads "external skills" from `~/.claude/skills/` and
+`~/.agents/skills/` — dev/tooling skills would surface inside tutoring
+sessions. There is no config key for this; only env vars. `just study` sets
+`OPENCODE_DISABLE_EXTERNAL_SKILLS=1 OPENCODE_DISABLE_CLAUDE_CODE_SKILLS=1`.
+Launching bare `opencode` in the studies repo works but reopens that leak —
+use `just study`. (Skill *use* still requires an ask either way; the leak is
+their descriptions entering tutor context.)
 
-Use Pi for pedagogy through the relevant prompt template or skill command, such as `/hint`, `/assess-solution`, `/chapter-plan`, `/exit-check`, `/transfer-problem`, or `/skill:math-tutoring`. Do not use Pi for repository development work; use Codex for that.
+## Where things that used to be here went
 
-## OpenCode
-
-OpenCode uses:
-
-- `opencode.jsonc` for OpenCode project configuration.
-- `.opencode/instructions/math-study-context.md` for teaching-harness orientation and guardrails.
-- `.opencode/agents/math-pedagogy.md` as the explicit pedagogical primary agent.
-- `.opencode/skills/*/SKILL.md` for generic mathematics pedagogical roles.
-- `.opencode/commands/*.md` for common tutoring and planning commands.
-
-Use OpenCode for pedagogy by switching to the `math-pedagogy` agent or using one of the OpenCode commands: `/hint`, `/assess-solution`, `/chapter-plan`, `/exit-check`, or `/transfer-problem`. Do not use OpenCode for repository development work in this project; use Codex for that.
-
-## Study Packs
-
-The generic pedagogy roles read `studies/active.md` and then use the active study pack for text-specific policy, source priority, workflow, progress, exercise indexes, and edition notes. Add new mathematics texts under `studies/<slug>/` rather than hard-coding text-specific behavior into harness skills.
-
-## Running Location
-
-For v0, run Pi or OpenCode with the repository root as the working directory so project-local teaching resources are discovered automatically. If launching from elsewhere, point the tool at this repository or use the harness-specific mechanism for selecting the project working directory.
-
-## V1 Boundary
-
-Consider a v1 harness only if the CLI/app setup cannot support a required workflow, such as persistent learner state outside the repo, structured assessment records, cross-session scheduling, or more reliable automatic role selection than prompts, skills, and native OpenCode agents can provide.
+| v0 (this repo, deleted)            | v1 home                                          |
+| ---------------------------------- | ------------------------------------------------ |
+| `.pi/` prompts/skills/append       | deleted; opencode is the single tutor harness    |
+| `.opencode/` agent/commands/skills | sources in `tutor/`, deployed to `tooter-studies` |
+| root `opencode.jsonc`              | source `tutor/opencode.jsonc`, deployed          |
+| `studies/`, `references/`, `notes/` | `tooter-studies` (private repo)                  |
+| `state/progress.md` + `code-exercises.md` tables | state layer (`chapters.yaml`, `exercises/*.yaml`); `progress.md` survives as the boundary view |

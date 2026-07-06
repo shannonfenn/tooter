@@ -1,0 +1,39 @@
+// DEPLOYED tutor config — source of truth is tooter (workbench) tutor/opencode.jsonc.
+// Edit there and run `just deploy`; direct edits in tooter-studies are overwritten
+// and flagged by `just deploy --check`.
+//
+// Enforcement, not prose (redesign-plan.md §3.4): edit and bash are deny-by-default
+// with narrow allowlists; the built-in SWE agents are disabled entirely.
+{
+  "$schema": "https://opencode.ai/config.json",
+  "instructions": [".opencode/instructions/math-study-context.md"],
+  "share": "disabled",
+  "default_agent": "math-pedagogy",
+  "permission": {
+    "edit": {
+      "*": "deny",
+      "studies/*/state/**": "allow",
+      "studies/*/attempts/**": "allow",
+      "studies/*/code/**": "ask"
+    },
+    "bash": {
+      "*": "deny",
+      "tooter-state *": "allow",
+      "just *": "allow",
+      "ls inbox": "allow",
+      "ls inbox/*": "allow"
+    },
+    "webfetch": "ask",
+    "skill": {
+      "*": "ask"
+    }
+  },
+  "agent": {
+    "build": {
+      "disable": true
+    },
+    "plan": {
+      "disable": true
+    }
+  }
+}

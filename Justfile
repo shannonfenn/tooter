@@ -1,25 +1,21 @@
 default:
     @just --list
 
-# Run a Python exercise from the active study pack, e.g. `just py ch03_groups`
-py name:
-    uv run python studies/judson-aata/code/python/exercises/{{name}}.py
+# Compile tutor-core + config into the studies repo; `just deploy --check` reports drift only.
+deploy *ARGS:
+    python3 scripts/deploy.py {{ARGS}}
 
-# Run a named exercise.
-exercise name:
-    uv run python studies/judson-aata/code/python/exercises/{{name}}.py
-
-# Run Chapter 3 finite-group exercise.
-ch03-groups:
-    just exercise ch03_groups
-
-# Run optional tests.
+# Run state-layer tests.
 test:
-    uv run pytest
+    uv run --directory state-layer pytest
 
-# Run Python linting.
+# Run state-layer linting.
 lint:
-    uv run ruff check
+    uv run --directory state-layer ruff check
 
 # Run tests and linting.
 check: test lint
+
+# Install the tooter-state CLI as an editable uv tool (what tooter-studies' `just setup` calls).
+install-state:
+    uv tool install --editable state-layer --force
