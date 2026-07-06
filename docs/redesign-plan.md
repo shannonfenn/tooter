@@ -14,7 +14,7 @@ The content architecture is sound and is kept: study packs as plain files, pedag
 
 Plus three structural moves:
 
-- **Separation by geometry, enforced by permissions.** Tutoring runs only in a dedicated study workspace (`~/studies`) that contains zero dev config; the dev repo (workbench) regains a normal `AGENTS.md`. Harness permission globs and disabled built-in SWE agents replace prose guardrails.
+- **Separation by geometry, enforced by permissions.** Tutoring runs only in a dedicated study repo (`~/dev/src/github/tooter-studies`) that contains zero dev config — and whose ancestor directories hold no agent instruction files; the dev repo (workbench) regains a normal `AGENTS.md`. Harness permission globs and disabled built-in SWE agents replace prose guardrails.
 - **`opencode web` is the daily tutor surface** (renders KaTeX as of v1.17); the TUI is the always-working floor. **`.pi/` is deleted** — one tutor config source, compiled outward.
 - **At-desk paper capture is a requirement, not a feature** (§4). Away/mobile sessions are an optional nice-to-have, deprioritized.
 
@@ -28,7 +28,7 @@ Not now, and only behind explicit triggers (§9): custom app, notebook stack, re
 
 ## 3. Target architecture
 
-### 3.1 Geometry: workbench and studio
+### 3.1 Geometry: two repos — `tooter` (workbench) and `tooter-studies` (study workspace)
 
 ```
 ~/dev/src/github/tooter/            # WORKBENCH — dev repo (keeps name + history)
@@ -39,7 +39,7 @@ Not now, and only behind explicit triggers (§9): custom app, notebook stack, re
   docs/                             # this plan, pedagogy, harness notes
   Justfile                          # deploy, deploy --check, lint, test
 
-~/studies/                          # STUDIO — new private repo; tutor cwd, always
+~/dev/src/github/tooter-studies/    # STUDY WORKSPACE — new private repo; tutor cwd, always
   .opencode/ + opencode.jsonc       # DEPLOYED tutor config (one-way, git-tracked)
   studies/active.md
   studies/judson-aata/              # pack: policy, exercises, editions, code/
@@ -49,15 +49,17 @@ Not now, and only behind explicit triggers (§9): custom app, notebook stack, re
   references/  notes/  pyproject.toml  uv.lock  Justfile (study targets)
 ```
 
-Dev agents (Claude Code / Codex) work only in the workbench. The studio's tree and ancestry contain no dev files, so config discovery finds nothing to leak — in either direction. The old failure (SWE instructions leaking into tutoring) becomes geometrically impossible rather than textually forbidden; equally, dev agents stop being starved of instructions to protect the tutor.
+Dev agents (Claude Code / Codex) work only in the workbench. `tooter-studies` contains no dev files, and — **the geometry invariant** — none of its ancestor directories (`~/dev`, `~/dev/src`, `~/dev/src/github`) may hold agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …), so upward config discovery finds nothing to leak in either direction. The old failure (SWE instructions leaking into tutoring) becomes geometrically impossible rather than textually forbidden; equally, dev agents stop being starved of instructions to protect the tutor.
+
+Naming/location rationale: it is a git repo among repos, so it lives with them (not in `$HOME`, which is for installed-software config/state); the `tooter-` prefix keeps the pairing discoverable in a repo listing, and "studies" describes a state package rather than a product. The pack directories inside keep their existing names (`studies/judson-aata/` etc.).
 
 ### 3.2 Contract 1: tutor-core (single source, compiled)
 
-`workbench/tutor/` holds the canonical prose: the tutor role, the moves (`/start`, `/hint`, `/assess-solution`, `/review-paper`, `/chapter-plan`, `/exit-check`, `/transfer-problem`, `/progress`), and the protocols (§4.4, §6). `just deploy` compiles these into the studio's `.opencode/` (agent, commands, instructions). The compiler is dumb concatenation/templating — no cleverness. Drift check (`deploy --check`) runs on a weekly schedule, never at session start (a maintenance prompt at study time is a study-killer).
+`workbench/tutor/` holds the canonical prose: the tutor role, the moves (`/start`, `/hint`, `/assess-solution`, `/review-paper`, `/chapter-plan`, `/exit-check`, `/transfer-problem`, `/progress`), and the protocols (§4.4, §6). `just deploy` compiles these into `tooter-studies/.opencode/` (agent, commands, instructions). The compiler is dumb concatenation/templating — no cleverness. Drift check (`deploy --check`) runs on a weekly schedule, never at session start (a maintenance prompt at study time is a study-killer).
 
 ### 3.3 Contract 2: state layer (dual-faced)
 
-Python package in the workbench; studio consumes it as an installed tool.
+Python package in the workbench; `tooter-studies` consumes it as an installed tool.
 
 - `state/exercises/chNN.yaml` — per-exercise records: `status ∈ {unseen, attempted, needs-review, proved, re-derived, transfers-ok, retired}` (deliberately **no "mastered"** — see §5), topic/pattern tags, attempts count, last_attempt, next_review, short note.
 - `state/attempts.jsonl` — append-only: `{ts, exercise, kind: attempt|stuck-here, verdict, hint_depth, image_paths, tutor_summary}`. Never edited.
@@ -76,7 +78,7 @@ Scheduling: expanding intervals 1/3/7/21/60d; on `proved`, push `next_review` ou
 - **Optional later (deprioritized):** claude.ai Project compiled from tutor-core, for away sessions. If ever added: mobile is **never state-authoritative** — capture + feedback only; the desk session re-records from the same scans.
 - **Triggered only:** thin custom app (Agent SDK + assistant-ui) — see §9; if built, pedagogy widgets ship first (commit-gated MCQs, hint-ladder reveal, transcription gate), not a nicer chat.
 
-Studio `opencode.jsonc` (enforcement, not prose): `edit` deny-by-default, allow `studies/*/state/**` and `studies/*/attempts/**`, ask for `studies/*/code/**`; `bash` deny-by-default with an allowlist (`tooter-state *`, `just *`, `ls inbox/*`); built-in `build`/`plan` agents `disable: true`. Pin the opencode version; upgrades happen on a scheduled quarterly evening against a smoke checklist (permission semantics, KaTeX, image attach) — opencode moves fast and its web assets are proxied from app.opencode.ai, so upgrades are a deliberate act, not an accident.
+`tooter-studies/opencode.jsonc` (enforcement, not prose): `edit` deny-by-default, allow `studies/*/state/**` and `studies/*/attempts/**`, ask for `studies/*/code/**`; `bash` deny-by-default with an allowlist (`tooter-state *`, `just *`, `ls inbox/*`); built-in `build`/`plan` agents `disable: true`. Pin the opencode version; upgrades happen on a scheduled quarterly evening against a smoke checklist (permission semantics, KaTeX, image attach) — opencode moves fast and its web assets are proxied from app.opencode.ai, so upgrades are a deliberate act, not an accident.
 
 ## 4. Capture (requirement)
 
@@ -85,7 +87,7 @@ Studio `opencode.jsonc` (enforcement, not prose): `edit` deny-by-default, allow 
 - At-desk loop: **"page done → reviewable in session" in ≤2 manual actions and ≤30 seconds.** Ease of use dominates; each manual step is a defect. This is the highest-frequency loop in the whole system — it must be boring.
 - Devices: iPhone 16 Pro; MacBook Pro 14 (built-in camera); Insta360 Link 2 Pro on the monitor — usable only if it needn't be physically moved from its meeting position (software gimbal repositioning with reliable return is acceptable).
 - Quality: sufficient for VLM transcription of handwritten math. Research baseline: document-scan-grade capture (deskew/contrast) attacks the dominant VLM failure modes (blur, rotation); Claude ingests up to 2576px long edge natively, so a sharp 4K frame may obviate scan processing.
-- Files land in `studio/inbox/` timestamped; after review they are archived to the pack's `attempts/YYYY/` beside their ledger entries (provenance: scan lives next to its assessment record).
+- Files land in `tooter-studies/inbox/` timestamped; after review they are archived to the pack's `attempts/YYYY/` beside their ledger entries (provenance: scan lives next to its assessment record).
 - No new always-on daemon unless it demonstrably beats the daemon-free option.
 
 ### 4.2 Researched flows (dossiers 2026-07-06)
@@ -106,7 +108,7 @@ Already verified on the target Mac (macOS 26.4.1): ffmpeg/AVFoundation enumerate
 
 ### 4.3 Chosen flow + fallback
 
-- **Primary: flow 1** — an Action Button shortcut "Scan to Inbox": VisionKit document scan (grayscale for math pages) → Save File into iCloud Drive `studies/inbox`. Studio `inbox/` is a symlink into the iCloud container (`~/Library/Mobile Documents/com~apple~CloudDocs/studies/inbox`). The consumer (`/review-paper`) reads **on-demand**: list the folder → `brctl download` anything dataless → short retry loop (≤60s) — no watchers, no daemons. One-time Mac config: Optimize Mac Storage **off** (eager replication), pin the inbox folder ("Keep Downloaded").
+- **Primary: flow 1** — an Action Button shortcut "Scan to Inbox": VisionKit document scan (grayscale for math pages) → Save File into iCloud Drive `tooter-studies/inbox`. The repo's `inbox/` is a symlink into the iCloud container (`~/Library/Mobile Documents/com~apple~CloudDocs/tooter-studies/inbox`). (The archived capture dossiers predate this rename and show `~/studies/inbox` in example commands — substitute accordingly.) The consumer (`/review-paper`) reads **on-demand**: list the folder → `brctl download` anything dataless → short retry loop (≤60s) — no watchers, no daemons. One-time Mac config: Optimize Mac Storage **off** (eager replication), pin the inbox folder ("Keep Downloaded").
 - **Interim + fallback: flow 2** — Finder → Import from iPhone → Scan Documents straight into `inbox/`. Zero setup, deterministic, local; usable from day one and whenever iCloud misbehaves.
 - **Candidate upgrade: flow 3** — the Insta360 zero-touch loop (1 action beats 2, and the page never leaves the desk). Adopt for the per-page loop **only if the empirical gate passes**: a dense derivation page, captured via the desk preset, is legible at 100% and Claude's transcription matches the iPhone-scan baseline on subscripts/exponents/fraction bars. Trigger via Hammerspoon first; if adopted, harden with the Stream Deck plugin or the UVC-protocol port. The iPhone scan remains the quality-escalation path for any page the tutor flags illegible.
 - **Empirical tests before locking (Phase 1 tasks):**
@@ -156,10 +158,11 @@ Sage was an artifact of the first text, not a commitment. Generalize:
 
 Every later branch of the decision tree consumes these unchanged.
 
-- [ ] Create `~/studies` private repo; move `studies/`, `references/`, `notes/`, `pyproject.toml`/`uv.lock`, study Justfile targets.
+- [ ] Create the `tooter-studies` private repo at `~/dev/src/github/tooter-studies`; move `studies/`, `references/`, `notes/`, `pyproject.toml`/`uv.lock`, study Justfile targets.
+- [ ] Verify the geometry invariant: no agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …) in any ancestor (`~/dev`, `~/dev/src`, `~/dev/src/github`); note the invariant in the studies repo's README.
 - [ ] **Delete `.pi/`** (unanimous across the design review).
 - [ ] Relocate `.opencode/*` prose into workbench `tutor/` sources; write the compile/deploy step (`just deploy`, `deploy --check`).
-- [ ] Studio `opencode.jsonc` with permission enforcement (§3.4); disable built-in `build`/`plan` agents.
+- [ ] `tooter-studies/opencode.jsonc` with permission enforcement (§3.4); disable built-in `build`/`plan` agents.
 - [ ] State layer v1: package, YAML/JSONL schemas, CLI face, `seed_state.py` migrating `state/progress.md` + `state/code-exercises.md` (then delete `code-exercises.md`; `progress.md` survives as the boundary view).
 - [ ] Restore workbench `AGENTS.md` (dev-agent instructions); rewrite `docs/agent-harnesses.md` to point at this plan.
 
