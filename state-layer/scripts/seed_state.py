@@ -4,7 +4,7 @@
 One-shot migration (redesign-plan.md Phase 0). Run from the workbench:
 
     uv run --directory state-layer python scripts/seed_state.py \
-        --root ~/dev/src/github/tooter-studies
+        --root ~/dev/oth/github/tooter-studies
 """
 
 from __future__ import annotations

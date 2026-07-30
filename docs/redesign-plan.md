@@ -14,7 +14,7 @@ The content architecture is sound and is kept: study packs as plain files, pedag
 
 Plus three structural moves:
 
-- **Separation by geometry, enforced by permissions.** Tutoring runs only in a dedicated study repo (`~/dev/src/github/tooter-studies`) that contains zero dev config — and whose ancestor directories hold no agent instruction files; the dev repo (workbench) regains a normal `AGENTS.md`. Harness permission globs and disabled built-in SWE agents replace prose guardrails.
+- **Separation by geometry, enforced by permissions.** Tutoring runs only in a dedicated study repo (`~/dev/oth/github/tooter-studies`) that contains zero dev config — and whose ancestor directories hold no agent instruction files; the dev repo (workbench) regains a normal `AGENTS.md`. Harness permission globs and disabled built-in SWE agents replace prose guardrails.
 - **`opencode web` is the daily tutor surface** (renders KaTeX as of v1.17); the TUI is the always-working floor. **`.pi/` is deleted** — one tutor config source, compiled outward.
 - **At-desk paper capture is a requirement, not a feature** (§4). Away/mobile sessions are an optional nice-to-have, deprioritized.
 
@@ -39,7 +39,7 @@ Not now, and only behind explicit triggers (§9): custom app, notebook stack, re
   docs/                             # this plan, pedagogy, harness notes
   Justfile                          # deploy, deploy --check, lint, test
 
-~/dev/src/github/tooter-studies/    # STUDY WORKSPACE — new private repo; tutor cwd, always
+~/dev/oth/github/tooter-studies/    # STUDY WORKSPACE — private repo; tutor cwd, always
   .opencode/ + opencode.jsonc       # DEPLOYED tutor config (one-way, git-tracked)
   studies/active.md
   studies/judson-aata/              # pack: policy, exercises, editions, code/
@@ -49,9 +49,9 @@ Not now, and only behind explicit triggers (§9): custom app, notebook stack, re
   references/  notes/  pyproject.toml  uv.lock  Justfile (study targets)
 ```
 
-Dev agents (Claude Code / Codex) work only in the workbench. `tooter-studies` contains no dev files, and — **the geometry invariant** — none of its ancestor directories (`~/dev`, `~/dev/src`, `~/dev/src/github`) may hold agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …), so upward config discovery finds nothing to leak in either direction. The old failure (SWE instructions leaking into tutoring) becomes geometrically impossible rather than textually forbidden; equally, dev agents stop being starved of instructions to protect the tutor.
+Dev agents (Claude Code / Codex) work only in the workbench. `tooter-studies` contains no dev files, and — **the geometry invariant** — none of its ancestor directories (`~/dev`, `~/dev/oth`, `~/dev/oth/github`) may hold agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …), so upward config discovery finds nothing to leak in either direction. The old failure (SWE instructions leaking into tutoring) becomes geometrically impossible rather than textually forbidden; equally, dev agents stop being starved of instructions to protect the tutor.
 
-Naming/location rationale: it is a git repo among repos, so it lives with them (not in `$HOME`, which is for installed-software config/state); the `tooter-` prefix keeps the pairing discoverable in a repo listing, and "studies" describes a state package rather than a product. The pack directories inside keep their existing names (`studies/judson-aata/` etc.).
+Naming/location rationale: it is a git repo, so it lives in the `~/dev` tree rather than `$HOME` (which is for installed-software config/state) — but under `~/dev/oth/` ("other"), not `~/dev/src/` (source-code checkouts), since it is state/content rather than software source. The `tooter-` prefix keeps the pairing discoverable, and "studies" describes a state package rather than a product. The pack directories inside keep their existing names (`studies/judson-aata/` etc.).
 
 ### 3.2 Contract 1: tutor-core (single source, compiled)
 
@@ -78,7 +78,7 @@ Scheduling: expanding intervals 1/3/7/21/60d; on `proved`, push `next_review` ou
 - **Optional later (deprioritized):** claude.ai Project compiled from tutor-core, for away sessions. If ever added: mobile is **never state-authoritative** — capture + feedback only; the desk session re-records from the same scans.
 - **Triggered only:** thin custom app (Agent SDK + assistant-ui) — see §9; if built, pedagogy widgets ship first (commit-gated MCQs, hint-ladder reveal, transcription gate), not a nicer chat.
 
-`tooter-studies/opencode.jsonc` (enforcement, not prose): `edit` deny-by-default, allow `studies/*/state/**` and `studies/*/attempts/**`, ask for `studies/*/code/**`; `bash` deny-by-default with an allowlist (`tooter-state *`, `just *`, `ls inbox/*`); built-in `build`/`plan` agents `disable: true`. Pin the opencode version; upgrades happen on a scheduled quarterly evening against a smoke checklist (permission semantics, KaTeX, image attach) — opencode moves fast and its web assets are proxied from app.opencode.ai, so upgrades are a deliberate act, not an accident.
+`tooter-studies/opencode.jsonc` (enforcement, not prose): `edit` deny-by-default, allow `studies/*/state/**` and `studies/*/attempts/**`, ask for `studies/*/code/**`; `bash` deny-by-default with an allowlist (`tooter-state *`, `just *`, `ls inbox/*`); built-in `build`/`plan` agents `disable: true`. Pin the opencode version; upgrades happen on a scheduled quarterly evening against a smoke checklist (permission semantics, KaTeX, image attach) — opencode moves fast and its web assets are proxied from app.opencode.ai, so upgrades are a deliberate act, not an accident. Sessions launch via `just study`, which also disables opencode's external-skill discovery (`~/.claude/skills/` etc. would otherwise surface dev skills inside tutor context; no config key exists, env vars only — details in `agent-harnesses.md`). Bare `opencode` in the studies repo reopens that leak.
 
 ## 4. Capture (requirement)
 
@@ -158,15 +158,15 @@ Sage was an artifact of the first text, not a commitment. Generalize:
 
 Every later branch of the decision tree consumes these unchanged.
 
-- [x] Create the `tooter-studies` private repo at `~/dev/src/github/tooter-studies`; move `studies/`, `references/`, `notes/`, `pyproject.toml`/`uv.lock`, study Justfile targets.
-- [x] Verify the geometry invariant: no agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …) in any ancestor (`~/dev`, `~/dev/src`, `~/dev/src/github`); note the invariant in the studies repo's README.
+- [x] Create the `tooter-studies` private repo at `~/dev/oth/github/tooter-studies`; move `studies/`, `references/`, `notes/`, `pyproject.toml`/`uv.lock`, study Justfile targets.
+- [x] Verify the geometry invariant: no agent instruction/config files (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …) in any ancestor (`~/dev`, `~/dev/oth`, `~/dev/oth/github`); note the invariant in the studies repo's README.
 - [x] **Delete `.pi/`** (unanimous across the design review).
 - [x] Relocate `.opencode/*` prose into workbench `tutor/` sources; write the compile/deploy step (`just deploy`, `deploy --check`).
 - [x] `tooter-studies/opencode.jsonc` with permission enforcement (§3.4); disable built-in `build`/`plan` agents.
 - [x] State layer v1: package, YAML/JSONL schemas, CLI face, `seed_state.py` migrating `state/progress.md` + `state/code-exercises.md` (then delete `code-exercises.md`; `progress.md` survives as the boundary view).
 - [x] Restore workbench `AGENTS.md` (dev-agent instructions); rewrite `docs/agent-harnesses.md` to point at this plan.
 
-_Phase 0 executed 2026-07-06. Also done, from §11: opencode pinned at 1.17.13 (`brew pin opencode`) with the quarterly upgrade smoke checklist written into `agent-harnesses.md`; `just study` closes the external-skills leak found during verification._
+_Phase 0 executed 2026-07-06. Also done, from §11: opencode pinned at 1.17.13 (`brew pin opencode`) with the quarterly upgrade smoke checklist written into `agent-harnesses.md`; `just study` closes the external-skills leak found during verification. Studies repo relocated from `~/dev/src/github` to `~/dev/oth/github` on 2026-07-30 (repo-taxonomy decision: `oth/` for state/content repos, `src/` for source checkouts); invariant re-verified, deploy default + setup paths updated._
 
 ### Phase 1 — surface + capture (second weekend)
 
@@ -205,5 +205,5 @@ No custom app. No jupyter-ai / notebook tutor. No remote MCP / tunnels. No away-
 
 - Whether `state/progress.md` stays a hand-adjustable boundary view or becomes fully generated from the YAML.
 - Default computational tooling policy for future packs (Python/SymPy default vs per-pack) — decide when the second pack lands.
-- opencode pinning: exact version + the quarterly upgrade smoke checklist (permission semantics, KaTeX, image attach) to be written in Phase 0.
+- ~~opencode pinning: exact version + the quarterly upgrade smoke checklist to be written in Phase 0.~~ Done: pinned 1.17.13, checklist in `agent-harnesses.md`.
 - Remaining capture empirical tests: see §4.3.

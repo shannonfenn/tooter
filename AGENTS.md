@@ -1,7 +1,7 @@
 # tooter workbench — agent instructions
 
 This repo is the **dev workbench** for a personal AI math-tutoring system. No
-tutoring happens here. The tutor runs in `~/dev/src/github/tooter-studies` (a
+tutoring happens here. The tutor runs in `~/dev/oth/github/tooter-studies` (a
 separate private repo that is the tutor's cwd, always) and everything it needs
 is compiled and deployed from here. You are a software/docs agent working on
 tutor-core prose, the state layer, the compiler, and documentation.
@@ -29,7 +29,7 @@ tutor-core prose, the state layer, the compiler, and documentation.
   contract and nothing may rewrite it.
 - Geometry invariant: never create agent instruction/config files
   (`AGENTS.md`, `CLAUDE.md`, `.claude/`, `opencode.jsonc`, …) in `~/dev`,
-  `~/dev/src`, or `~/dev/src/github`.
+  `~/dev/oth`, or `~/dev/oth/github` — the tutor's ancestry.
 - Keep tutor-core prose pedagogical: no software-development workflow language
   in `tutor/` files.
 - After changing `tutor/` or `docs/pedagogy-for-tutoring.md`, run
@@ -38,7 +38,7 @@ tutor-core prose, the state layer, the compiler, and documentation.
 ## Commands
 
 ```sh
-just deploy            # compile tutor-core into ../tooter-studies
+just deploy            # compile tutor-core into ~/dev/oth/github/tooter-studies
 just deploy --check    # drift report only (weekly ritual, never at study time)
 just test / lint / check
 just install-state     # (re)install the tooter-state CLI as an editable uv tool

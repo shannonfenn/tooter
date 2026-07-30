@@ -25,7 +25,10 @@
     },
     "webfetch": "ask",
     "skill": {
-      "*": "ask"
+      // last-match-wins: the built-in customize-opencode skill (registered in
+      // code, cannot be unlisted) is hard-denied after the general "ask".
+      "*": "ask",
+      "customize-opencode": "deny"
     }
   },
   "agent": {
@@ -33,6 +36,14 @@
       "disable": true
     },
     "plan": {
+      "disable": true
+    },
+    // The tutor spawns no subagents; general/explore carry non-pedagogy
+    // default prompts, so they are disabled like build/plan.
+    "general": {
+      "disable": true
+    },
+    "explore": {
       "disable": true
     }
   }

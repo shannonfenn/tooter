@@ -24,7 +24,7 @@ import sys
 from pathlib import Path
 
 WORKBENCH = Path(__file__).resolve().parents[1]
-DEFAULT_TARGET = WORKBENCH.parent / "tooter-studies"
+DEFAULT_TARGET = Path.home() / "dev/oth/github/tooter-studies"
 
 # Directory trees copied recursively: (workbench-relative, target-relative).
 TREES = [

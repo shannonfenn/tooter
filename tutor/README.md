@@ -5,7 +5,7 @@ moves), always-loaded instructions, skills, and the enforced opencode config.
 This is the portable asset; surfaces are rented (redesign-plan.md §3.2).
 
 Nothing here is read in place. `just deploy` compiles these sources into the
-study workspace (`~/dev/src/github/tooter-studies`):
+study workspace (`~/dev/oth/github/tooter-studies`):
 
 | source                          | deploys to (in tooter-studies)              |
 | ------------------------------- | ------------------------------------------- |
