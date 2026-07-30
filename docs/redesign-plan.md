@@ -170,6 +170,8 @@ _Phase 0 executed 2026-07-06. Also done, from §11: opencode pinned at 1.17.13 (
 
 ### Phase 1 — surface + capture (second weekend)
 
+_Division of labor: a dev agent executes every buildable item (moves, protocols, state wiring, MCP face, scripts, hotkey glue) and pre-verifies what it can headlessly. Items needing a phone, GUI settings, physical scans, or learner judgment are Shannon's: the iOS Shortcut, iCloud config (Optimize Mac Storage off, folder pin), the §4.3 capture empirical tests, the KaTeX/image-attach quality judgment on real transcripts, live permission prompts, and the chapter-4 shakedown. The agent's definition of done is everything buildable built and committed plus a concise handoff checklist for those human steps — never a claim that they happened. Run the hour-one gate first and report its outcome (its failure branch is "stay on TUI", not an improvised alternative). Capture implementation detail lives in `docs/research/capture-*.md` (pre-rename paths — substitute per §4.3). Launch/test tutor sessions only via `just study`._
+
 - [ ] **Hour one:** verify `opencode web` KaTeX rendering + image attach on real transcripts. Failure → stay on TUI and bring the optional claude.ai surface forward.
 - [ ] Implement the chosen capture flow (§4.3) end-to-end, including Mac-side hotkey/script glue; run the empirical quality tests from the capture research on real handwriting.
 - [ ] `/review-paper` and `/start` moves wired to the state CLI; queue + dashboard generation in `just study`.
