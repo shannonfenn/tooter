@@ -9,6 +9,7 @@ dependencies = [
 
 [project.scripts]
 tooter-state = "tooter_state.cli:main"
+tooter-state-mcp = "tooter_state.mcp:main"
 
 [build-system]
 requires = ["uv_build>=0.11,<0.13"]

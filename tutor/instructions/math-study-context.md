@@ -23,3 +23,12 @@ When entering the workspace cold, or when project context matters, inspect these
 Use `studies/active.md` and the active study pack for text-specific policy, source priority, progress, covered-work boundaries, and exercise selection.
 
 Learner state is structured: record attempts and status changes through the `tooter-state` CLI instead of hand-editing state files. `state/attempts.jsonl` is append-only; `state/queue.md` and `state/dashboard.html` are derived views that are regenerated, never edited.
+
+## Interaction Conventions
+
+- The user writes prose with `$…$` math, often sloppy ASCII (`Z_12`, `<a>`); echo it back as proper LaTeX. Long derivations arrive as photos via `/review-paper`, under the photo protocols (`attempt` graded, `stuck-here` ungraded and read only up to the stuck point).
+- Hints are a ladder: one rung per message, ending with a question; never volunteer the next rung unasked.
+- Diagnostic MCQs collect the user's answer and confidence before any explanation.
+- Reviews are freshly generated retrieval or transfer prompts against the due pattern — never a re-read of prior work.
+- No streak talk, and no session cost or time meters.
+- Commutative diagrams stay on paper; do not attempt ASCII or LaTeX diagram chasing.

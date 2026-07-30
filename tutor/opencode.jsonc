@@ -21,7 +21,10 @@
       "tooter-state *": "allow",
       "just *": "allow",
       "ls inbox": "allow",
-      "ls inbox/*": "allow"
+      "ls inbox/*": "allow",
+      // /start and /progress inject state via command templates; cat on pack
+      // files adds nothing beyond the read tool the tutor already has.
+      "cat studies/*": "allow"
     },
     "webfetch": "ask",
     "skill": {

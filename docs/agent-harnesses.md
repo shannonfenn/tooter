@@ -22,17 +22,27 @@ operational.
   `bash` deny-by-default with narrow allowlists (state/attempts writable,
   `tooter-state *`/`just *` runnable), built-in `build`/`plan` agents
   disabled, sharing disabled.
-- **Moves.** `/hint`, `/assess-solution`, `/chapter-plan`, `/exit-check`,
-  `/transfer-problem` (Phase 1 adds `/start`, `/review-paper`, `/progress`).
-  The `/command` grammar is itself pedagogical ritual — keep it on every
-  surface.
+- **Moves.** `/start`, `/hint`, `/assess-solution`, `/review-paper`,
+  `/chapter-plan`, `/exit-check`, `/transfer-problem`, `/progress` (complete
+  as of Phase 1). The `/command` grammar is itself pedagogical ritual — keep
+  it on every surface. `/start` and `/progress` inject live state through
+  opencode command-template shell interpolation (`` !`tooter-state due` ``),
+  which runs the command at invocation and pastes its output into the prompt —
+  the session-open ritual is mechanized, not remembered.
 - **State.** `state-layer/` package; CLI `tooter-state` installed as an
   editable uv tool (`just install-state` here, `just setup` in the studies
-  repo). MCP face with identical functions lands in Phase 1.
-- **Surfaces.** TUI is the always-working floor; `opencode web` becomes the
-  daily surface after the Phase-1 hour-one check (KaTeX + image attach on real
-  transcripts). `just study` in the studies repo launches the tutor with
-  external-skill discovery disabled (see leak note below).
+  repo). The MCP face (`tooter-state-mcp`, stdio, Phase 1) exposes the same
+  functions over shared `ops.py`; it is deliberately **not** mounted in
+  opencode — the tutor keeps the bash-allowlisted CLI; the MCP face is for
+  future surfaces (claude.ai Project, custom app).
+- **Surfaces.** `opencode web` is the daily surface (Phase-1 hour-one check
+  passed headlessly 2026-07-30; final judgment on a real transcript is in
+  `phase1-handoff.md`). `just study` regenerates queue + dashboard, opens the
+  dashboard, and launches `opencode web` on the **fixed port 4096** (stable
+  browser origin = stable client-side state; the server binds 127.0.0.1,
+  unsecured — fine for localhost single-user). TUI via `just study-tui` is the
+  always-working floor. Both set the external-skill env vars (leak note
+  below).
 - **Drift.** `just deploy --check` — run on a weekly schedule, never at
   study-session start (a maintenance prompt at study time is a study-killer).
 
@@ -51,15 +61,39 @@ operational.
      `build`/`plan`/`general`/`explore` (internal `compaction`/`summary`/`title`
      remaining listed is normal).
   2. **KaTeX rendering** — a real transcript with inline and display math
-     renders in `opencode web` (Phase 1 onward).
+     renders in `opencode web`.
   3. **Image attach** — a real page scan attaches and is readable in the
-     session (Phase 1 onward).
+     session.
   4. **Discovery** — `/hint` et al. appear in the command palette;
      `opencode debug skill` (with the `just study` env vars) lists exactly the
      four `math-*` skills plus opencode's built-in `customize-opencode` (which
      cannot be unlisted — registered in code — but is permission-denied in the
      deployed config).
   5. **Deploy integrity** — `just deploy --check` still reports clean.
+  6. **Command-template shell injection** — `/start` still expands
+     `` !`tooter-state due` `` (export a session and look for the injected
+     block); an upgrade that breaks interpolation silently un-mechanizes the
+     session-open ritual.
+  7. **Web project registry** — the tooter-studies project in `opencode web`
+     opens at `~/dev/oth/github/tooter-studies` with only Math-Pedagogy in the
+     agent picker (see registry note below).
+
+## opencode web project registry (repo moves)
+
+opencode keys each project by its git root commit and **pins the worktree
+path** in `~/.local/share/opencode/opencode.db` (`project.worktree`). Moving a
+repo does not update it: after the Phase-0 relocation, the web UI resolved the
+project to the old `~/dev/src/...` path and booted a phantom instance there —
+**no repo `opencode.jsonc`, so no permission enforcement, default SWE agents,
+zero tutor config**. The TUI never hits this (it uses the launch cwd).
+
+Fixed 2026-07-30: server stopped, DB backed up
+(`opencode.db.bak-20260730`), `project.worktree` updated to the oth path,
+client localStorage cleared. If the studies repo ever moves again: expect the
+same symptom (web project header shows the old path; agent picker shows
+Build/Plan), and apply the same one-column fix — or delete the project row and
+let opencode re-register it, accepting the loss of session history bound to
+that project id.
 - Rollback: `brew` keeps the previous keg; `brew switch`-style rollback is
   gone, so reinstall the pinned version from the formula history if a smoke
   step fails, and re-pin.

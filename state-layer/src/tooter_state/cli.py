@@ -12,7 +12,7 @@ import sys
 from datetime import date
 from pathlib import Path
 
-from . import scheduling, store, views
+from . import ops, store, views
 from .workspace import Pack, WorkspaceError, active_pack, find_root
 
 
@@ -25,17 +25,6 @@ def _today(args: argparse.Namespace) -> date:
     return date.fromisoformat(args.date) if args.date else date.today()
 
 
-def _chapter_for(args: argparse.Namespace, exercise_id: str) -> int:
-    if args.chapter:
-        return args.chapter
-    chapter = store.chapter_of(exercise_id)
-    if chapter is None:
-        raise store.StateError(
-            f"cannot infer a chapter from {exercise_id!r}; pass --chapter N"
-        )
-    return chapter
-
-
 def _split_patterns(raw: str | None) -> list[str]:
     if not raw:
         return []
@@ -43,52 +32,36 @@ def _split_patterns(raw: str | None) -> list[str]:
 
 
 def cmd_record_attempt(args: argparse.Namespace) -> int:
-    pack = _resolve_pack(args)
-    today = _today(args)
-    chapter = _chapter_for(args, args.exercise)
-    hint_depth = args.hint_depth
-    if args.kind == "stuck-here" and hint_depth is None:
-        hint_depth = 1  # smallest useful hint is the stuck-here contract
-    store.append_attempt(
-        pack,
-        ts=store.now_iso(today if args.date else None),
+    _, messages = ops.record_attempt(
+        _resolve_pack(args),
         exercise=args.exercise,
+        chapter=args.chapter,
         kind=args.kind,
         verdict=args.verdict,
-        hint_depth=hint_depth,
-        image_paths=args.image or [],
-        tutor_summary=args.summary,
+        hint_depth=args.hint_depth,
+        images=args.image or [],
+        summary=args.summary,
+        patterns=_split_patterns(args.patterns),
+        status=args.status,
+        propagate=not args.no_propagate,
+        today=_today(args),
+        explicit_date=bool(args.date),
     )
-    record = store.get_exercise(pack, chapter, args.exercise)
-    if record is None:
-        record = store.new_record("code" if args.exercise.startswith("code:") else "text")
-    record["attempts"] += 1
-    record["last_attempt"] = today
-    if record["status"] == "unseen":
-        record["status"] = "attempted"
-    if args.patterns:
-        merged = _split_patterns(args.patterns)
-        record["patterns"] += [p for p in merged if p not in record["patterns"]]
-    store.upsert_exercise(pack, chapter, args.exercise, record)
-    graded = f" (verdict: {args.verdict})" if args.verdict else ""
-    print(f"recorded {args.kind} #{record['attempts']} for {args.exercise}{graded}")
-    if args.status:
-        _, messages = scheduling.set_status(
-            pack, chapter, args.exercise, args.status, today,
-            propagate=not args.no_propagate,
-        )
-        for message in messages:
-            print(message)
+    for message in messages:
+        print(message)
     return 0
 
 
 def cmd_update_status(args: argparse.Namespace) -> int:
-    pack = _resolve_pack(args)
-    chapter = _chapter_for(args, args.exercise)
-    _, messages = scheduling.set_status(
-        pack, chapter, args.exercise, args.status, _today(args),
-        note=args.note, patterns=_split_patterns(args.patterns),
+    _, messages = ops.update_status(
+        _resolve_pack(args),
+        exercise=args.exercise,
+        status=args.status,
+        chapter=args.chapter,
+        note=args.note,
+        patterns=_split_patterns(args.patterns),
         propagate=not args.no_propagate,
+        today=_today(args),
     )
     for message in messages:
         print(message)

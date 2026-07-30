@@ -1,8 +1,9 @@
 """State layer for tooter study workspaces.
 
 Two faces over identical state (redesign-plan.md §3.3): a CLI (`tooter-state`,
-bash-allowlisted to the tutor) and — Phase 1 — a stdio MCP server exposing the
-same functions. State lives in the active study pack:
+bash-allowlisted to the tutor) and a stdio MCP server (`tooter-state-mcp`)
+exposing the same functions via shared ``ops``. State lives in the active
+study pack:
 
 - ``state/chapters.yaml``       chapter-level study state (structured source)
 - ``state/exercises/chNN.yaml`` per-exercise records

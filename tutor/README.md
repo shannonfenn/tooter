@@ -21,5 +21,8 @@ The compiler (`scripts/deploy.py`) is dumb file copying from that manifest —
 no templating — so `just deploy --check` is plain byte equality. Run the check
 on a weekly schedule, never at study-session start.
 
-Phase 1 adds the remaining moves (`/start`, `/review-paper`, `/progress`), the
-photo protocols (§4.4), and the rendering-era pedagogy hardening (§6).
+Phase 1 (executed) added the remaining moves (`/start`, `/review-paper`,
+`/progress`), the photo protocols (§4.4), and the rendering-era pedagogy
+hardening (§6). `/start` and `/progress` inject live state into their prompts
+via opencode command-template shell interpolation (`` !`tooter-state due` ``),
+so the session-open ritual is mechanized, not remembered.

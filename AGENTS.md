@@ -15,8 +15,9 @@ tutor-core prose, the state layer, the compiler, and documentation.
   `tooter-studies/.opencode/` and its `opencode.jsonc`.
 - `scripts/deploy.py` — the compiler: dumb manifest copy, `just deploy`,
   drift check via `just deploy --check`.
-- `state-layer/` — `tooter-state` Python package (schemas, CLI; MCP face lands
-  in Phase 1). uv project; tests under `state-layer/tests/`.
+- `state-layer/` — `tooter-state` Python package: schemas, CLI face, and the
+  stdio MCP face (`tooter-state-mcp`), both over shared `ops.py`. uv project;
+  tests under `state-layer/tests/`.
 - `docs/pedagogy-for-tutoring.md` — pedagogy reference; deployed to the tutor
   as an on-demand reference file.
 

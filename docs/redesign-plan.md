@@ -172,12 +172,14 @@ _Phase 0 executed 2026-07-06. Also done, from §11: opencode pinned at 1.17.13 (
 
 _Division of labor: a dev agent executes every buildable item (moves, protocols, state wiring, MCP face, scripts, hotkey glue) and pre-verifies what it can headlessly. Items needing a phone, GUI settings, physical scans, or learner judgment are Shannon's: the iOS Shortcut, iCloud config (Optimize Mac Storage off, folder pin), the §4.3 capture empirical tests, the KaTeX/image-attach quality judgment on real transcripts, live permission prompts, and the chapter-4 shakedown. The agent's definition of done is everything buildable built and committed plus a concise handoff checklist for those human steps — never a claim that they happened. Run the hour-one gate first and report its outcome (its failure branch is "stay on TUI", not an improvised alternative). Capture implementation detail lives in `docs/research/capture-*.md` (pre-rename paths — substitute per §4.3). Launch/test tutor sessions only via `just study`._
 
-- [ ] **Hour one:** verify `opencode web` KaTeX rendering + image attach on real transcripts. Failure → stay on TUI and bring the optional claude.ai surface forward.
-- [ ] Implement the chosen capture flow (§4.3) end-to-end, including Mac-side hotkey/script glue; run the empirical quality tests from the capture research on real handwriting.
-- [ ] `/review-paper` and `/start` moves wired to the state CLI; queue + dashboard generation in `just study`.
-- [ ] Tutor-core hardening edits (§6) and photo protocols (§4.4) deployed.
-- [ ] MCP face of the state layer (~150 lines; same functions as the CLI).
-- [ ] **Shakedown:** finish chapter 4 end-to-end on the new system before any further investment.
+- [x] **Hour one:** verify `opencode web` KaTeX rendering + image attach on real transcripts. Failure → stay on TUI and bring the optional claude.ai surface forward. _Passed headlessly 2026-07-30: inline + display KaTeX render in a live math-pedagogy reply; attach input accepts images and PDF; only `math-pedagogy` offered. Blocker found and fixed on the way: opencode's project registry still pinned the pre-move worktree path, so web sessions opened an unconfigured phantom instance — see `agent-harnesses.md`. Final quality judgment on a real transcript + real scan is the first item of the human checklist._
+- [x] Implement the chosen capture flow (§4.3) end-to-end, including Mac-side hotkey/script glue; run the empirical quality tests from the capture research on real handwriting. _Mac side built and exercised: iCloud inbox + symlink (`just setup-capture`, run), on-demand pull with ≤60s retry (`just inbox`), archive-to-attempts (`just archive-scan`), plus harnesses for every §4.3 empirical test (`capture-test-latency`, `capture-test-resolution`, `preprocess-scan`, `insta360-probe`). The physical runs — iOS Shortcut, iCloud GUI toggles, real scans — are Shannon's: `docs/phase1-handoff.md`._
+- [x] `/review-paper` and `/start` moves wired to the state CLI; queue + dashboard generation in `just study`. _Also `/progress`. `/start` and `/progress` inject live `tooter-state` output via command-template shell interpolation (verified in an exported session); `just study` regenerates queue + dashboard, opens the dashboard, and launches `opencode web` on the fixed port 4096; `just study-tui` is the floor._
+- [x] Tutor-core hardening edits (§6) and photo protocols (§4.4) deployed.
+- [x] MCP face of the state layer (~150 lines; same functions as the CLI). _`tooter-state-mcp`, stdio; CLI and MCP share `ops.py`. Not mounted in opencode (the tutor keeps the CLI face); it exists for any future surface._
+- [ ] **Shakedown:** finish chapter 4 end-to-end on the new system before any further investment. _(Shannon; last item of the handoff checklist.)_
+
+_Phase 1 buildable items executed 2026-07-30 by a dev agent per the division-of-labor note above. Human steps remain and are collected in [phase1-handoff.md](phase1-handoff.md); none of them are claimed done._
 
 ### Phase 2 — optional, deprioritized (nice-to-have)
 

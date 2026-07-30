@@ -1,8 +1,9 @@
 # state-layer — `tooter-state`
 
 Structured learner state for tooter study workspaces (redesign-plan.md §3.3).
-One set of functions, two faces: this CLI today, a ~150-line stdio MCP server
-in Phase 1, so every present and future surface consumes identical state.
+One set of functions (`ops.py`), two faces: the `tooter-state` CLI and the
+`tooter-state-mcp` stdio MCP server, so every present and future surface
+consumes identical state.
 
 ## State files (in the active pack's `state/`)
 
@@ -29,6 +30,23 @@ tooter-state render-dashboard
 
 Workspace resolution: `--root`, else `$TOOTER_STUDIES_ROOT`, else walk up from
 cwd to the nearest `studies/active.md`. The active pack comes from that file.
+
+## MCP
+
+`tooter-state-mcp` (same install) is a stdio MCP server exposing
+`get_progress`, `get_due_reviews`, `get_exercise`, `record_attempt`,
+`update_status`, `log_misconception` — the CLI's functions over the same
+`ops.py`. Hand-rolled JSON-RPC, no SDK dependency. Workspace resolution as
+above (`--root` flag, env, cwd walk-up; resolved per call, so pack switches
+take effect live). It is not mounted in the tutor's opencode config — the
+tutor uses the bash-allowlisted CLI; this face exists so a future surface
+(claude.ai Project, custom app) mounts identical state unchanged:
+
+```json
+{ "mcpServers": { "tooter-state": {
+    "command": "tooter-state-mcp",
+    "args": ["--root", "~/dev/oth/github/tooter-studies"] } } }
+```
 
 ## Scheduling
 
